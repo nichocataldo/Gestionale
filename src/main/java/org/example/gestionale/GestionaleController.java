@@ -1,14 +1,22 @@
 package org.example.gestionale;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class GestionaleController {
+    public javafx.scene.control.DatePicker DatePicker;
     @FXML
-    private Label welcomeText;
+    private TextField txtNome;
+    @FXML
+    private TextField txtCognome;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    void initialize() {
+        txtNome.setPromptText("Nome");
+        txtCognome.setPromptText("Cognome");
+    }
+
+    public void onButtonCreaDipendente(ActionEvent event) {
     }
 }
