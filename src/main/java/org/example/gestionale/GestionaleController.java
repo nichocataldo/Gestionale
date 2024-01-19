@@ -36,4 +36,7 @@ public class GestionaleController {
 
 
     }
+
+    public void onButtonMostraDati(ActionEvent event) {
+    }
 }

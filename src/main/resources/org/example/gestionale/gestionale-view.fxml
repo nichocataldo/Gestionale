@@ -18,28 +18,51 @@
         <tabs>
           <Tab text="DIPENDENTI">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="702.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="683.0">
                      <children>
                         <Button layoutX="27.0" layoutY="216.0" mnemonicParsing="false" onAction="#onButtonCreaDipendente" prefHeight="42.0" prefWidth="179.0" text="Aggiungi dipendente" />
                         <TextField fx:id="txtNome" layoutX="26.0" layoutY="82.0" prefHeight="25.0" prefWidth="173.0" />
                         <TextField fx:id="txtCognome" layoutX="26.0" layoutY="118.0" prefHeight="25.0" prefWidth="173.0" />
                         <DatePicker fx:id="DatePicker" layoutX="25.0" layoutY="154.0" />
-                        <RadioButton fx:id="rbMaschio" layoutX="28.0" layoutY="190.0" mnemonicParsing="false" text="M">
+                        <RadioButton fx:id="rbMaschio" layoutX="27.0" layoutY="190.0" mnemonicParsing="false" text="M">
                            <toggleGroup>
                               <ToggleGroup fx:id="Sesso" />
                            </toggleGroup></RadioButton>
                         <RadioButton fx:id="rbFemmina" layoutX="71.0" layoutY="190.0" mnemonicParsing="false" text="F" toggleGroup="$Sesso" />
-                        <Label layoutX="577.0" layoutY="28.0" text="Label" />
                         <Label layoutX="23.0" layoutY="39.0" prefHeight="25.0" prefWidth="187.0" text="AGGIUNGI DIPENDENTE">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Label layoutX="37.0" layoutY="58.0" prefHeight="17.0" prefWidth="151.0" text="Completa tutte le caselle con i  relativi dati">
+                        <Label layoutX="41.0" layoutY="58.0" prefHeight="17.0" prefWidth="151.0" text="Completa tutte le caselle con i relativi dati">
                            <font>
                               <Font name="System Italic" size="8.0" />
                            </font>
                         </Label>
+                        <Label layoutX="518.0" layoutY="39.0" prefHeight="25.0" prefWidth="193.0" text="SELEZIONA DIPENDENTE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="539.0" layoutY="58.0" prefHeight="17.0" prefWidth="151.0" text="Completa tutte le caselle con i  relativi dati">
+                           <font>
+                              <Font name="System Italic" size="8.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="528.0" layoutY="82.0" prefHeight="25.0" prefWidth="173.0" />
+                        <TextField layoutX="528.0" layoutY="118.0" prefHeight="25.0" prefWidth="173.0" />
+                        <TextField layoutX="528.0" layoutY="154.0" prefHeight="25.0" prefWidth="173.0" />
+                        <RadioButton layoutX="528.0" layoutY="190.0" mnemonicParsing="false" text="M">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="Sesso1" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton layoutX="571.0" layoutY="190.0" mnemonicParsing="false" text="F">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="Sesso2" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <Button layoutX="518.0" layoutY="216.0" mnemonicParsing="false" onAction="#onButtonMostraDati" prefHeight="42.0" prefWidth="179.0" text="Mostra dati dipendente" />
                      </children>
                   </AnchorPane>
             </content>

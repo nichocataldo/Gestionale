@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fef9e3f8-df92-4780-a264-fda03f0f1acc" name="Changes" comment="Aggiunti alert e ToggleGroup">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/gestionale/GestionaleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/gestionale/GestionaleController.java" afterDir="false" />
-    </list>
+    <list default="true" id="fef9e3f8-df92-4780-a264-fda03f0f1acc" name="Changes" comment="Sistemata la grafica della sezione &quot;aggiungi dipendente&quot;" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,7 +91,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705666399013</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Sistemata la grafica della sezione &quot;aggiungi dipendente&quot;">
+      <option name="closed" value="true" />
+      <created>1705685779459</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1705685779459</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,6 +119,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Aggiunti i riferimenti mancanti" />
     <MESSAGE value="Aggiunti alert e ToggleGroup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Aggiunti alert e ToggleGroup" />
+    <MESSAGE value="Sistemata la grafica della sezione &quot;aggiungi dipendente&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sistemata la grafica della sezione &quot;aggiungi dipendente&quot;" />
   </component>
 </project>
