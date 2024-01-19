@@ -22,6 +22,7 @@ public class GestionaleController {
     void initialize() {
         txtNome.setPromptText("Nome");
         txtCognome.setPromptText("Cognome");
+        DatePicker.setPromptText("Data");
     }
 
     public void onButtonCreaDipendente(ActionEvent event) {
