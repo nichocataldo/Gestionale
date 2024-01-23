@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.controlsfx.control.SearchableComboBox;
 
 import java.io.IOException;
 
@@ -16,12 +17,14 @@ public class GestionaleController {
     public RadioButton rbMaschio;
     public RadioButton rbFemmina;
     public ToggleGroup Sesso;
+    private SearchableComboBox ListaDipendenti;
     @FXML
     private TextField txtNome;
     @FXML
     private TextField txtCognome;
     private GestionaleDipendenti Gestionale;
     private String sesso;
+
     
 
     @FXML
@@ -46,7 +49,6 @@ public class GestionaleController {
             sesso = "Femmina";
         Gestionale.creaDipendente(txtNome.getText(), txtCognome.getText(),sesso, String.valueOf(DatePicker.getValue()));
         Gestionale.salvaDipendenti();
-
     }
     public void onButtonMostraDati(ActionEvent event) {
     }
