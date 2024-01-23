@@ -44,7 +44,7 @@ public class GestionaleController {
             sesso = "Maschio";
         if(rbFemmina.isSelected())
             sesso = "Femmina";
-        Gestionale.creaDipendente(txtNome.getText(), txtCognome.getText(),sesso, DatePicker.toString());
+        Gestionale.creaDipendente(txtNome.getText(), txtCognome.getText(),sesso, String.valueOf(DatePicker.getValue()));
         Gestionale.salvaDipendenti();
 
     }
