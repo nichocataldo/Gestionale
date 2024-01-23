@@ -17,6 +17,7 @@ public class GestionaleController {
     public RadioButton rbMaschio;
     public RadioButton rbFemmina;
     public ToggleGroup Sesso;
+    @FXML
     private SearchableComboBox ListaDipendenti;
     @FXML
     private TextField txtNome;
@@ -25,16 +26,14 @@ public class GestionaleController {
     private GestionaleDipendenti Gestionale;
     private String sesso;
 
-    
-
     @FXML
-    void initialize() {
+    void initialize() throws IOException {
         txtNome.setPromptText("Nome");
         txtCognome.setPromptText("Cognome");
         DatePicker.setPromptText("Data");
         Gestionale = new GestionaleDipendenti();
+        ListaDipendenti.getItems().add("Mattia Montini");
     }
-
     public void onButtonCreaDipendente(ActionEvent event) throws IOException {
         if (txtNome.getText().equals("") || txtCognome.getText().equals("") || DatePicker.getValue().equals("")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -52,4 +51,5 @@ public class GestionaleController {
     }
     public void onButtonMostraDati(ActionEvent event) {
     }
+
 }

@@ -17,10 +17,8 @@ public class GestionaleApplication extends Application {
         stage.show();
         stage.setMinHeight(496);
         stage.setMaxHeight(496);
-        stage.setMinWidth(740);
-        stage.setMaxWidth(740);
-
-
+        stage.setMinWidth(620);
+        stage.setMaxWidth(620);
 
     }
 

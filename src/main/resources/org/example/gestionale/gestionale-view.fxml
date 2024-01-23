@@ -13,13 +13,13 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gestionale.GestionaleController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gestionale.GestionaleController">
    <children>
       <TabPane layoutX="-3.0" layoutY="31.0" prefHeight="469.0" prefWidth="743.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="DIPENDENTI">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="605.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="591.0">
                      <children>
                         <Button layoutX="27.0" layoutY="213.0" mnemonicParsing="false" onAction="#onButtonCreaDipendente" prefHeight="42.0" prefWidth="179.0" text="Aggiungi dipendente" />
                         <TextField fx:id="txtNome" layoutX="26.0" layoutY="82.0" prefHeight="25.0" prefWidth="173.0" />
