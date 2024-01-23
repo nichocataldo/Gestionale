@@ -15,6 +15,13 @@ public class GestionaleApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
+        stage.setMinHeight(496);
+        stage.setMaxHeight(496);
+        stage.setMinWidth(740);
+        stage.setMaxWidth(740);
+
+
     }
 
     public static void main(String[] args) {

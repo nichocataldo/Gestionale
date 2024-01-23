@@ -6,6 +6,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class GestionaleController {
     public javafx.scene.control.DatePicker DatePicker;
@@ -23,6 +25,7 @@ public class GestionaleController {
         txtNome.setPromptText("Nome");
         txtCognome.setPromptText("Cognome");
         DatePicker.setPromptText("Data");
+
     }
 
     public void onButtonCreaDipendente(ActionEvent event) {
