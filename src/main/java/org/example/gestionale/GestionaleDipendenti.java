@@ -8,6 +8,9 @@ public class GestionaleDipendenti {
     private String cognome;
     private String data;
     private String sesso;
+    private FileWriter file;
+    BufferedWriter bw;
+
 
     /**
      * Metodo che inizializza i dipendenti.
@@ -65,8 +68,10 @@ public class GestionaleDipendenti {
      * @throws IOException
      */
     public void salvaDipendenti() throws IOException {
-        FileWriter file = new FileWriter("dipendenti.cvs");
-        BufferedWriter fileWrite = new BufferedWriter(file);
-        fileWrite.write(this.nome + ";" + this.cognome + ";" + this.sesso + ";" + this.data);
+        file = new FileWriter("dipendenti.cvs");
+        bw = new BufferedWriter(file);
+        bw.write(this.nome + ";" + this.cognome + ";" + this.sesso + ";" + this.data);
+        bw.close();
+        file.close();
     }
 }

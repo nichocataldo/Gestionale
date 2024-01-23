@@ -12,14 +12,14 @@ public class GestionaleApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GestionaleApplication.class.getResource("gestionale-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Gestionale Azienda");
         stage.setScene(scene);
         stage.show();
-
         stage.setMinHeight(496);
         stage.setMaxHeight(496);
         stage.setMinWidth(740);
         stage.setMaxWidth(740);
+
 
 
     }
