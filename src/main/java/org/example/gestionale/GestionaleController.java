@@ -18,6 +18,7 @@ public class GestionaleController {
     public TextField txtCognomeFornitore;
     public TextField txtNomeAziendaFornitore;
     public CheckBox ChkTypeFornitori;
+    public TextField txtFornitorePagamento;
     @FXML
     private SearchableComboBox ListaDipendenti;
     @FXML
@@ -108,5 +109,8 @@ public class GestionaleController {
             txtCognomeFornitore.setText("");
         }
 
+    }
+
+    public void onButtonPaga(ActionEvent event) {
     }
 }
