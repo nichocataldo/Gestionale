@@ -25,6 +25,7 @@ public class GestionaleController {
     @FXML
     private TextField txtCognome;
     private GestionaleDipendenti Gestionale;
+    private GestionaleFornitori Fornitori;
     private String sesso;
 
 
@@ -34,6 +35,7 @@ public class GestionaleController {
         txtCognome.setPromptText("Cognome");
         DatePicker.setPromptText("Data");
         Gestionale = new GestionaleDipendenti();
+        Fornitori = new GestionaleFornitori();
         ListaDipendenti.getItems().add("Mattia Montini");
         txtNomeFornitore.setPromptText("Nome");
         txtCognomeFornitore.setPromptText("Cognome");
@@ -57,7 +59,7 @@ public class GestionaleController {
     public void onButtonMostraDati(ActionEvent event) {
     }
 
-    public void onButtonCreaFornitore(ActionEvent event) {
+    public void onButtonCreaFornitore(ActionEvent event) throws IOException {
         if (ChkTypeFornitori.isSelected() && (txtNomeFornitore.getText().equals("") || txtCognomeFornitore.getText().equals(""))){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
@@ -71,6 +73,17 @@ public class GestionaleController {
             alert.setHeaderText("ERRORE D'INSERIMENTO");
             alert.setContentText("Inserire tutti i campi richiesti.");
             alert.showAndWait();
+        }
+        else{
+            if(ChkTypeFornitori.isSelected()) {
+                Fornitori.creaFornitori(txtNomeFornitore.getText(), txtCognomeFornitore.getText(), " ");
+                Fornitori.salvaFornitori();
+            }
+            else {
+                Fornitori.creaFornitori("", "", txtNomeAziendaFornitore.getText());
+                Fornitori.salvaFornitori();
+            }
+
         }
 
     }
@@ -88,5 +101,6 @@ public class GestionaleController {
             txtNomeFornitore.setText("");
             txtCognomeFornitore.setText("");
         }
+
     }
 }
