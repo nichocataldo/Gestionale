@@ -2,10 +2,7 @@ package org.example.gestionale;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -16,6 +13,10 @@ public class GestionaleController {
     public RadioButton rbMaschio;
     public RadioButton rbFemmina;
     public ToggleGroup Sesso;
+    public CheckBox chkTypeClienti;
+    public TextField txtNomeCliente;
+    public TextField txtCognomeCliente;
+    public TextField txtNomeAziendaCliente;
     @FXML
     private TextField txtNome;
     @FXML
@@ -49,5 +50,8 @@ public class GestionaleController {
 
     }
     public void onButtonMostraDati(ActionEvent event) {
+    }
+
+    public void onButtonCreaCliente(ActionEvent actionEvent) {
     }
 }
