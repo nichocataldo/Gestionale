@@ -55,8 +55,10 @@ public class Dipendenti {
         FileReader fr = new FileReader("src/main/java/Module/dipendenti.cvs");
         BufferedReader br = new BufferedReader(fr);
         String riga = br.readLine();
-        String[] dati;
-        dati = riga.split(";");
+        String[] dati = new String[0];
+        if (riga != null) {
+            dati = riga.split(";");
+        }
         while (riga != null && dati.length == 4) {
             Dipendenti dipendente = new Dipendenti();
             dipendente.nome = dati[0];
