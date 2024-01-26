@@ -89,13 +89,13 @@
                               <Font name="System Italic" size="8.0" />
                            </font>
                         </Label>
-                        <CheckBox fx:id="ChkTypeFornitori" layoutX="23.0" layoutY="81.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="98.0" text="Persona fisica">
+                        <CheckBox fx:id="ChkTypeFornitori" layoutX="23.0" layoutY="81.0" mnemonicParsing="false" onAction="#CheckPersona" prefHeight="16.0" prefWidth="98.0" text="Persona fisica">
                            <font>
                               <Font name="System Italic" size="11.0" />
                            </font>
                         </CheckBox>
-                        <TextField fx:id="txtNomeFornitore" layoutX="23.0" layoutY="107.0" />
-                        <TextField fx:id="txtCognomeFornitore" layoutX="23.0" layoutY="143.0" />
+                        <TextField fx:id="txtNomeFornitore" disable="true" layoutX="23.0" layoutY="107.0" />
+                        <TextField fx:id="txtCognomeFornitore" disable="true" layoutX="23.0" layoutY="143.0" />
                         <TextField fx:id="txtNomeAziendaFornitore" layoutX="23.0" layoutY="179.0" />
                         <Button layoutX="23.0" layoutY="215.0" mnemonicParsing="false" onAction="#onButtonCreaFornitore" prefHeight="42.0" prefWidth="179.0" text="Aggiungi fornitore" />
                      </children></AnchorPane>

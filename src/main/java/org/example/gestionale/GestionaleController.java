@@ -35,6 +35,9 @@ public class GestionaleController {
         DatePicker.setPromptText("Data");
         Gestionale = new GestionaleDipendenti();
         ListaDipendenti.getItems().add("Mattia Montini");
+        txtNomeFornitore.setPromptText("Nome");
+        txtCognomeFornitore.setPromptText("Cognome");
+        txtNomeAziendaFornitore.setPromptText("Nome Azienda");
     }
     public void onButtonCreaDipendente(ActionEvent event) throws IOException {
         if (txtNome.getText().equals("") || txtCognome.getText().equals("") || DatePicker.getValue().equals("")){
@@ -54,7 +57,19 @@ public class GestionaleController {
     public void onButtonMostraDati(ActionEvent event) {
     }
 
-
     public void onButtonCreaFornitore(ActionEvent event) {
+
+    }
+    public void CheckPersona(ActionEvent event) {
+        if (ChkTypeFornitori.isSelected()){
+            txtNomeAziendaFornitore.setDisable(true);
+            txtCognomeFornitore.setDisable(false);
+            txtNomeFornitore.setDisable(false);
+        }
+        else{
+            txtNomeAziendaFornitore.setDisable(false);
+            txtCognomeFornitore.setDisable(true);
+            txtNomeFornitore.setDisable(true);
+        }
     }
 }
