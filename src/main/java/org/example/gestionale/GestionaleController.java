@@ -31,6 +31,11 @@ public class GestionaleController {
         txtCognome.setPromptText("Cognome");
         DatePicker.setPromptText("Data");
         Gestionale = new GestionaleDipendenti();
+        txtNomeCliente.setPromptText("Nome");
+        txtCognomeCliente.setPromptText("Cognome");
+        txtNomeAziendaCliente.setPromptText("Nome Azienda");
+
+
     }
 
     public void onButtonCreaDipendente(ActionEvent event) throws IOException {
@@ -53,5 +58,38 @@ public class GestionaleController {
     }
 
     public void onButtonCreaCliente(ActionEvent actionEvent) {
+        if (chkTypeClienti.isSelected() && (txtNomeCliente.getText().equals("") || txtCognomeCliente.getText().equals(""))){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Inserire tutti i campi richiesti.");
+            alert.showAndWait();
+        }
+        else if(!chkTypeClienti.isSelected() &&txtNomeAziendaCliente.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Inserire tutti i campi richiesti.");
+            alert.showAndWait();
+        }
+
     }
+
+    public void checkCliente(ActionEvent actionEvent) {
+        if (chkTypeClienti.isSelected()){
+            txtNomeCliente.setDisable(false);
+            txtCognomeCliente.setDisable(false);
+            txtNomeAziendaCliente.setDisable(true);
+            txtNomeAziendaCliente.setText("");
+        }else{
+            txtNomeCliente.setDisable(true);
+            txtCognomeCliente.setDisable(true);
+            txtNomeAziendaCliente.setDisable(false);
+            txtNomeCliente.setText("");
+            txtCognomeCliente.setText("");
+
+        }
+    }
+
+
 }

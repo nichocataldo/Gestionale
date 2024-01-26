@@ -82,7 +82,7 @@
                               <Font name="System Italic" size="8.0" />
                            </font>
                         </Label>
-                        <CheckBox fx:id="chkTypeClienti" layoutX="23.0" layoutY="81.0" mnemonicParsing="false" text="Persona Fisica">
+                        <CheckBox fx:id="chkTypeClienti" layoutX="23.0" layoutY="81.0" mnemonicParsing="false" onAction="#checkCliente" text="Persona Fisica">
                            <font>
                               <Font name="System Italic" size="11.0" />
                            </font>
