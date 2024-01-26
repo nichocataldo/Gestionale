@@ -22,6 +22,7 @@ public class GestionaleController {
     public TextField txtCognomeFornitore;
     public TextField txtNomeAziendaFornitore;
     public CheckBox ChkTypeFornitori;
+    public TextField txtFornitorePagamento;
     @FXML
     private SearchableComboBox ListaDipendenti;
     @FXML
@@ -41,7 +42,13 @@ public class GestionaleController {
     private ArrayList<Dipendenti> dipendenti = new ArrayList<>();
     private GestionaleFornitori Fornitori;
 
-
+    private void Alert(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Errore");
+        alert.setHeaderText("ERRORE D'INSERIMENTO");
+        alert.setContentText("Inserire tutti i campi richiesti.");
+        alert.showAndWait();
+    }
     @FXML
     void initialize() throws IOException {
         txtNome.setPromptText("Nome");
@@ -59,7 +66,8 @@ public class GestionaleController {
         txtNomeFornitore.setPromptText("Nome");
         txtCognomeFornitore.setPromptText("Cognome");
         txtNomeAziendaFornitore.setPromptText("Nome Azienda");
-
+      Classe-Fornitori
+        txtFornitorePagamento.setPromptText("Importo");
     }
     public void onButtonCreaDipendente(ActionEvent event) throws IOException {
         if (txtNome.getText().isEmpty() || txtCognome.getText().isEmpty() || DatePicker.getValue() == null || (!rbFemmina.isSelected() && !rbMaschio.isSelected())){
@@ -169,5 +177,8 @@ public class GestionaleController {
             txtCognomeFornitore.setText("");
         }
 
+    }
+
+    public void onButtonPaga(ActionEvent event) {
     }
 }
