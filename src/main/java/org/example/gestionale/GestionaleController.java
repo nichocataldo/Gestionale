@@ -78,6 +78,7 @@ public class GestionaleController {
             Dipendenti.salvaDipendenti(dipendenti);
             txtNome.clear();
             txtCognome.clear();
+            DatePicker.setValue(null);
             rbMaschio.setSelected(false);
             rbFemmina.setSelected(false);
         }
