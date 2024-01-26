@@ -26,8 +26,9 @@ public class GestionaleFornitori {
             System.out.println(riga);
             dati = riga.split(";");
             fornitore.nome = dati[0];
-            fornitore.cognome = dati[1];
-            fornitore.nomeAzienda = dati[2];
+            //Se presenti questi due errore, crea un fornitore ,null, null
+            //fornitore.cognome = dati[1];
+            //fornitore.nomeAzienda = dati[2];
             fornitori.add(fornitore);
             System.out.println("Aggiunto " + fornitore);
             riga = br.readLine();

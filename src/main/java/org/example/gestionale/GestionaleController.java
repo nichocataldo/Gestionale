@@ -177,7 +177,6 @@ public class GestionaleController {
         }
 
     }
-
     public void onButtonPaga(ActionEvent event) {
         if (txtFornitorePagamento.getText().equals("") || ListaFornitori.getItems().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -194,6 +193,7 @@ public class GestionaleController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 // ... user chose OK
+
             } else {
                 alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
