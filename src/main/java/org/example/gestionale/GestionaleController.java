@@ -58,6 +58,20 @@ public class GestionaleController {
     }
 
     public void onButtonCreaFornitore(ActionEvent event) {
+        if (ChkTypeFornitori.isSelected() && (txtNomeFornitore.getText().equals("") || txtCognomeFornitore.getText().equals(""))){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Inserire tutti i campi richiesti.");
+            alert.showAndWait();
+        }
+        else if(!ChkTypeFornitori.isSelected() &&txtNomeAziendaFornitore.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Inserire tutti i campi richiesti.");
+            alert.showAndWait();
+        }
 
     }
     public void CheckPersona(ActionEvent event) {
@@ -65,11 +79,14 @@ public class GestionaleController {
             txtNomeAziendaFornitore.setDisable(true);
             txtCognomeFornitore.setDisable(false);
             txtNomeFornitore.setDisable(false);
+            txtNomeAziendaFornitore.setText("");
         }
         else{
             txtNomeAziendaFornitore.setDisable(false);
             txtCognomeFornitore.setDisable(true);
             txtNomeFornitore.setDisable(true);
+            txtNomeFornitore.setText("");
+            txtCognomeFornitore.setText("");
         }
     }
 }
