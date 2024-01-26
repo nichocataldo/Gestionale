@@ -62,7 +62,7 @@ public class GestionaleController {
 
     }
     public void onButtonCreaDipendente(ActionEvent event) throws IOException {
-        if (txtModificaNome.getText().isEmpty() || txtCognome.getText().isEmpty() || DatePicker.getValue() == null || (!rbFemmina.isSelected() && !rbMaschio.isSelected())){
+        if (txtNome.getText().isEmpty() || txtCognome.getText().isEmpty() || DatePicker.getValue() == null || (!rbFemmina.isSelected() && !rbMaschio.isSelected())){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("ERRORE D'INSERIMENTO");
