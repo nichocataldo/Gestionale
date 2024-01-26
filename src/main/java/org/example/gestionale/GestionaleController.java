@@ -30,13 +30,13 @@ public class GestionaleController {
     public TextField txtNomeAziendaFornitore;
     public CheckBox ChkTypeFornitori;
     public TextField txtFornitorePagamento;
+    public SearchableComboBox ListaFornitori;
     @FXML
     private SearchableComboBox ListaDipendenti;
     @FXML
     private TextField txtNome;
     @FXML
     private TextField txtCognome;
-
     @FXML
     private TextField txtModificaNome, txtModificaCognome, txtModificaData;
     @FXML
@@ -47,7 +47,7 @@ public class GestionaleController {
     private Dipendenti Gestionale;
     private String sesso;
     private ArrayList<Dipendenti> dipendenti = new ArrayList<>();
-    private GestionaleFornitori Fornitori;
+    private ArrayList<GestionaleFornitori> fornitori = new ArrayList<>();
 
     private void Alert(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -67,9 +67,6 @@ public class GestionaleController {
             ListaDipendenti.getItems().add(dipendenti.get(i).getNome() + " " + dipendenti.get(i).getCognome()); // Aggiunge al CheckBox
         }
         System.out.println(dipendenti);
-
-        Fornitori = new GestionaleFornitori();
-        ListaDipendenti.getItems().add("Mattia Montini");
         txtNomeFornitore.setPromptText("Nome");
         txtCognomeFornitore.setPromptText("Cognome");
         txtNomeAziendaFornitore.setPromptText("Nome Azienda");
@@ -132,13 +129,9 @@ public class GestionaleController {
         sessoDipendente.setText(dipendente.getSesso());
     }
 
-
     void shutdown() throws IOException {
         Dipendenti.salvaDipendenti(dipendenti);
     }
-
-
-
 
     public void onButtonCreaFornitore(ActionEvent event) throws IOException {
         if (ChkTypeFornitori.isSelected() && (txtNomeFornitore.getText().equals("") || txtCognomeFornitore.getText().equals(""))){
@@ -157,14 +150,17 @@ public class GestionaleController {
         }
         else{
             if(ChkTypeFornitori.isSelected()) {
-                Fornitori.creaFornitori(txtNomeFornitore.getText(), txtCognomeFornitore.getText(), " ");
-                Fornitori.salvaFornitori();
+                fornitori.add(GestionaleFornitori.creaFornitori(txtNomeFornitore.getText(), txtCognomeFornitore.getText()," "));
+                ListaFornitori.getItems().add(fornitori.get(fornitori.size()-1).getNome() + " " + fornitori.get(fornitori.size()-1).getCognome());
             }
             else {
-                Fornitori.creaFornitori("", "", txtNomeAziendaFornitore.getText());
-                Fornitori.salvaFornitori();
+                fornitori.add(GestionaleFornitori.creaFornitori(" ", " ",txtNomeAziendaFornitore.getText()));
+                ListaFornitori.getItems().add(fornitori.get(fornitori.size()-1).getNome() + " " + fornitori.get(fornitori.size()-1).getCognome());
             }
-
+            GestionaleFornitori.salvaFornitori(fornitori);
+            txtNomeFornitore.clear();
+            txtCognomeFornitore.clear();
+            txtNomeAziendaFornitore.clear();
         }
 
     }
