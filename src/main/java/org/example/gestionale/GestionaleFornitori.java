@@ -18,9 +18,6 @@ public class GestionaleFornitori {
     public void salvaFornitori() throws IOException {
         FileWriter file = new FileWriter("src/main/java/Module/fornitori.cvs");
         BufferedWriter bw = new BufferedWriter(file);
-        for (int i = 0; i < dipendenti.size(); i++){
-            bw.write(dipendenti.get(i).nome + ";" + dipendenti.get(i).cognome + ";" + dipendenti.get(i).sesso + ";" + dipendenti.get(i).data + "\n");
-        }
         bw.close();
         file.close();
     }

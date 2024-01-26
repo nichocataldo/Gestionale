@@ -1,17 +1,24 @@
 package org.example.gestionale;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import javafx.util.Pair;
 import org.controlsfx.control.SearchableComboBox;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class GestionaleController {
     public javafx.scene.control.DatePicker DatePicker;
@@ -66,7 +73,6 @@ public class GestionaleController {
         txtNomeFornitore.setPromptText("Nome");
         txtCognomeFornitore.setPromptText("Cognome");
         txtNomeAziendaFornitore.setPromptText("Nome Azienda");
-      Classe-Fornitori
         txtFornitorePagamento.setPromptText("Importo");
     }
     public void onButtonCreaDipendente(ActionEvent event) throws IOException {
@@ -180,5 +186,19 @@ public class GestionaleController {
     }
 
     public void onButtonPaga(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Conferma pagamento");
+        alert.setContentText("Sei sicuro di volere pagare?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // ... user chose OK
+        } else {
+            alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setHeaderText("Pagamento annullato");
+            alert.setContentText("Il tuo pagamento è stato annullato!");
+            alert.showAndWait();
+        }
     }
 }
