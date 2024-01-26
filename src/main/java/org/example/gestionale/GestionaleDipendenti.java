@@ -10,6 +10,8 @@ public class GestionaleDipendenti {
     private String sesso;
     private FileWriter file;
     BufferedWriter bw;
+    FileReader fr;
+    BufferedReader br;
 
 
     /**
@@ -51,16 +53,18 @@ public class GestionaleDipendenti {
      */
     // Nota: Da ridiscutere (molto probabilmente il read lo si deve fare nel Controller)
     public void caricaDipedenti() throws IOException {
-        FileReader file = new FileReader("dipendenti.cvs");
-        BufferedReader fileRead = new BufferedReader(file);
+        fr = new FileReader("dipendenti.cvs");
+        br = new BufferedReader(fr);
         String riga;
         String[] dati;
-        riga = fileRead.readLine();
+        riga = br.readLine();
         dati = riga.split(";");
         this.nome = dati[0];
         this.cognome = dati[1];
         this.sesso = dati[2];
         this.data = dati[3];
+        br.close();
+        fr.close();
     }
 
     /**

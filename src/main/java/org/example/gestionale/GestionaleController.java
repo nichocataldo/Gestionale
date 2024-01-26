@@ -2,12 +2,10 @@ package org.example.gestionale;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.controlsfx.control.SearchableComboBox;
 
 import java.io.IOException;
 
@@ -16,22 +14,33 @@ public class GestionaleController {
     public RadioButton rbMaschio;
     public RadioButton rbFemmina;
     public ToggleGroup Sesso;
+    public TextField txtNomeFornitore;
+    public TextField txtCognomeFornitore;
+    public TextField txtNomeAziendaFornitore;
+    public CheckBox ChkTypeFornitori;
+    @FXML
+    private SearchableComboBox ListaDipendenti;
     @FXML
     private TextField txtNome;
     @FXML
     private TextField txtCognome;
     private GestionaleDipendenti Gestionale;
+    private GestionaleFornitori Fornitori;
     private String sesso;
-    
+
 
     @FXML
-    void initialize() {
+    void initialize() throws IOException {
         txtNome.setPromptText("Nome");
         txtCognome.setPromptText("Cognome");
         DatePicker.setPromptText("Data");
         Gestionale = new GestionaleDipendenti();
+        Fornitori = new GestionaleFornitori();
+        ListaDipendenti.getItems().add("Mattia Montini");
+        txtNomeFornitore.setPromptText("Nome");
+        txtCognomeFornitore.setPromptText("Cognome");
+        txtNomeAziendaFornitore.setPromptText("Nome Azienda");
     }
-
     public void onButtonCreaDipendente(ActionEvent event) throws IOException {
         if (txtNome.getText().equals("") || txtCognome.getText().equals("") || DatePicker.getValue().equals("")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -46,8 +55,52 @@ public class GestionaleController {
             sesso = "Femmina";
         Gestionale.creaDipendente(txtNome.getText(), txtCognome.getText(),sesso, String.valueOf(DatePicker.getValue()));
         Gestionale.salvaDipendenti();
-
     }
     public void onButtonMostraDati(ActionEvent event) {
+    }
+
+    public void onButtonCreaFornitore(ActionEvent event) throws IOException {
+        if (ChkTypeFornitori.isSelected() && (txtNomeFornitore.getText().equals("") || txtCognomeFornitore.getText().equals(""))){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Inserire tutti i campi richiesti.");
+            alert.showAndWait();
+        }
+        else if(!ChkTypeFornitori.isSelected() &&txtNomeAziendaFornitore.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Inserire tutti i campi richiesti.");
+            alert.showAndWait();
+        }
+        else{
+            if(ChkTypeFornitori.isSelected()) {
+                Fornitori.creaFornitori(txtNomeFornitore.getText(), txtCognomeFornitore.getText(), " ");
+                Fornitori.salvaFornitori();
+            }
+            else {
+                Fornitori.creaFornitori("", "", txtNomeAziendaFornitore.getText());
+                Fornitori.salvaFornitori();
+            }
+
+        }
+
+    }
+    public void CheckPersona(ActionEvent event) {
+        if (ChkTypeFornitori.isSelected()){
+            txtNomeAziendaFornitore.setDisable(true);
+            txtCognomeFornitore.setDisable(false);
+            txtNomeFornitore.setDisable(false);
+            txtNomeAziendaFornitore.setText("");
+        }
+        else{
+            txtNomeAziendaFornitore.setDisable(false);
+            txtCognomeFornitore.setDisable(true);
+            txtNomeFornitore.setDisable(true);
+            txtNomeFornitore.setText("");
+            txtCognomeFornitore.setText("");
+        }
+
     }
 }
