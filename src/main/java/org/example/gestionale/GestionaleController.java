@@ -123,9 +123,9 @@ public class GestionaleController {
             Dipendenti dipendente = dipendenti.get(index);
             alert.setTitle("Confirmation Dialog");
             alert.setHeaderText("Conferma rimozione");
-            if (dipendente.getSesso() == "Maschio") {
+            if (dipendente.getSesso().equals("Maschio")) {
                 alert.setContentText("Rimuovere il dipendente " + dipendente.getNome() + " " + dipendente.getCognome() + "?");
-            } else if (dipendente.getSesso() == "Femmina") {
+            } else if (dipendente.getSesso().equals("Femmina")) {
                 alert.setContentText("Rimuovere la dipendente " + dipendente.getNome() + " " + dipendente.getCognome() + "?");
             }
             Optional<ButtonType> result = alert.showAndWait();
