@@ -39,9 +39,7 @@ public class GestionaleController {
     private Dipendenti Gestionale;
     private String sesso;
     private ArrayList<Dipendenti> dipendenti = new ArrayList<>();
-    private GestionaleDipendenti Gestionale;
     private GestionaleFornitori Fornitori;
-    private String sesso;
 
 
     @FXML
@@ -56,7 +54,6 @@ public class GestionaleController {
         }
         System.out.println(dipendenti);
 
-        Gestionale = new GestionaleDipendenti();
         Fornitori = new GestionaleFornitori();
         ListaDipendenti.getItems().add("Mattia Montini");
         txtNomeFornitore.setPromptText("Nome");
