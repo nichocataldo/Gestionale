@@ -1,17 +1,24 @@
 package org.example.gestionale;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import javafx.util.Pair;
 import org.controlsfx.control.SearchableComboBox;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class GestionaleController {
     public javafx.scene.control.DatePicker DatePicker;
@@ -23,13 +30,13 @@ public class GestionaleController {
     public TextField txtNomeAziendaFornitore;
     public CheckBox ChkTypeFornitori;
     public TextField txtFornitorePagamento;
+    public SearchableComboBox ListaFornitori;
     @FXML
     private SearchableComboBox ListaDipendenti;
     @FXML
     private TextField txtNome;
     @FXML
     private TextField txtCognome;
-
     @FXML
     private TextField txtModificaNome, txtModificaCognome, txtModificaData;
     @FXML
@@ -40,15 +47,8 @@ public class GestionaleController {
     private Dipendenti Gestionale;
     private String sesso;
     private ArrayList<Dipendenti> dipendenti = new ArrayList<>();
-    private GestionaleFornitori Fornitori;
+    private ArrayList<GestionaleFornitori> fornitori = new ArrayList<>();
 
-    private void Alert(){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Errore");
-        alert.setHeaderText("ERRORE D'INSERIMENTO");
-        alert.setContentText("Inserire tutti i campi richiesti.");
-        alert.showAndWait();
-    }
     @FXML
     void initialize() throws IOException {
         txtNome.setPromptText("Nome");
@@ -59,14 +59,14 @@ public class GestionaleController {
         for (int i = 0; i < dipendenti.size(); i++){
             ListaDipendenti.getItems().add(dipendenti.get(i).getNome() + " " + dipendenti.get(i).getCognome()); // Aggiunge al CheckBox
         }
+        fornitori.addAll(GestionaleFornitori.caricaFornitori());
+        for (int i = 0; i < fornitori.size() ; i++) {
+            ListaFornitori.getItems().add(fornitori.get(i).getNome() + " " + fornitori.get(i).getCognome());
+        }
         System.out.println(dipendenti);
-
-        Fornitori = new GestionaleFornitori();
-        ListaDipendenti.getItems().add("Mattia Montini");
         txtNomeFornitore.setPromptText("Nome");
         txtCognomeFornitore.setPromptText("Cognome");
         txtNomeAziendaFornitore.setPromptText("Nome Azienda");
-      Classe-Fornitori
         txtFornitorePagamento.setPromptText("Importo");
     }
     public void onButtonCreaDipendente(ActionEvent event) throws IOException {
@@ -126,13 +126,9 @@ public class GestionaleController {
         sessoDipendente.setText(dipendente.getSesso());
     }
 
-
     void shutdown() throws IOException {
         Dipendenti.salvaDipendenti(dipendenti);
     }
-
-
-
 
     public void onButtonCreaFornitore(ActionEvent event) throws IOException {
         if (ChkTypeFornitori.isSelected() && (txtNomeFornitore.getText().equals("") || txtCognomeFornitore.getText().equals(""))){
@@ -142,7 +138,7 @@ public class GestionaleController {
             alert.setContentText("Inserire tutti i campi richiesti.");
             alert.showAndWait();
         }
-        else if(!ChkTypeFornitori.isSelected() &&txtNomeAziendaFornitore.getText().equals("")){
+        else if(!ChkTypeFornitori.isSelected() && txtNomeAziendaFornitore.getText().equals("")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("ERRORE D'INSERIMENTO");
@@ -151,14 +147,17 @@ public class GestionaleController {
         }
         else{
             if(ChkTypeFornitori.isSelected()) {
-                Fornitori.creaFornitori(txtNomeFornitore.getText(), txtCognomeFornitore.getText(), " ");
-                Fornitori.salvaFornitori();
+                fornitori.add(GestionaleFornitori.creaFornitori(txtNomeFornitore.getText(), txtCognomeFornitore.getText()," "));
+                ListaFornitori.getItems().add(fornitori.get(fornitori.size()-1).getNome() + " " + fornitori.get(fornitori.size()-1).getCognome());
             }
             else {
-                Fornitori.creaFornitori("", "", txtNomeAziendaFornitore.getText());
-                Fornitori.salvaFornitori();
+                fornitori.add(GestionaleFornitori.creaFornitori(" ", " ",txtNomeAziendaFornitore.getText()));
+                ListaFornitori.getItems().add(fornitori.get(fornitori.size()-1).getNomeAzienda());
             }
-
+            GestionaleFornitori.salvaFornitori(fornitori);
+            txtNomeFornitore.clear();
+            txtCognomeFornitore.clear();
+            txtNomeAziendaFornitore.clear();
         }
 
     }
@@ -178,7 +177,30 @@ public class GestionaleController {
         }
 
     }
-
     public void onButtonPaga(ActionEvent event) {
+        if (txtFornitorePagamento.getText().equals("") || ListaFornitori.getItems().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Importo o fornitore mancante!.");
+            alert.showAndWait();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Conferma pagamento");
+            alert.setContentText("Sei sicuro di volere pagare?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                // ... user chose OK
+
+            } else {
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Pagamento annullato");
+                alert.setContentText("Il tuo pagamento è stato annullato!");
+                alert.showAndWait();
+            }
+        }
     }
 }

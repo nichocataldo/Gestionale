@@ -89,9 +89,7 @@ public class Dipendenti {
     public String toString(){
         return this.nome + " " + this.cognome + " " + this.sesso + " " + this.data;
     }
-    public String getNome() {
-        return nome;
-    }
+    public String getNome() {return nome;}
 
     public String getCognome() {
         return cognome;
