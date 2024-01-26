@@ -47,6 +47,7 @@ public class GestionaleController {
         txtNomeFornitore.setPromptText("Nome");
         txtCognomeFornitore.setPromptText("Cognome");
         txtNomeAziendaFornitore.setPromptText("Nome Azienda");
+        txtFornitorePagamento.setPromptText("Importo");
     }
     public void onButtonCreaDipendente(ActionEvent event) throws IOException {
         if (txtNome.getText().equals("") || txtCognome.getText().equals("") || DatePicker.getValue().equals("")){
