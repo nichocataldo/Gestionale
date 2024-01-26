@@ -117,6 +117,25 @@ public class GestionaleController {
         txtModificaData.setText(dipendente.getData());
         sessoDipendente.setText(dipendente.getSesso());
     }
+    public void onButtonRimuoviDipendente(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        if (index != -1) {
+            Dipendenti dipendente = dipendenti.get(index);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Conferma rimozione");
+            if (dipendente.getSesso() == "Maschio") {
+                alert.setContentText("Rimuovere il dipendente " + dipendente.getNome() + " " + dipendente.getCognome() + "?");
+            } else if (dipendente.getSesso() == "Femmina") {
+                alert.setContentText("Rimuovere la dipendente " + dipendente.getNome() + " " + dipendente.getCognome() + "?");
+            }
+            Optional<ButtonType> result = alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                dipendenti.remove(index);
+                ListaDipendenti.getItems().remove(index);
+                Dipendenti.salvaDipendenti(dipendenti);
+            }
+        }
+    }
     public void onListaDipendentiAction(ActionEvent actionEvent) {
         index = ListaDipendenti.getSelectionModel().getSelectedIndex();
         Dipendenti dipendente = dipendenti.get(index);
@@ -203,4 +222,6 @@ public class GestionaleController {
             }
         }
     }
+
+
 }
