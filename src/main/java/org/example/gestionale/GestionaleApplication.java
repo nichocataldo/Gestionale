@@ -19,7 +19,6 @@ public class GestionaleApplication extends Application {
         stage.setMaxHeight(496);
         stage.setMinWidth(620);
         stage.setMaxWidth(620);
-
     }
 
     public static void main(String[] args) {

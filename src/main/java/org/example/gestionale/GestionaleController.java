@@ -2,10 +2,7 @@ package org.example.gestionale;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
@@ -17,6 +14,10 @@ public class GestionaleController {
     public RadioButton rbMaschio;
     public RadioButton rbFemmina;
     public ToggleGroup Sesso;
+    public TextField txtNomeFornitore;
+    public TextField txtCognomeFornitore;
+    public TextField txtNomeAziendaFornitore;
+    public CheckBox ChkTypeFornitori;
     @FXML
     private SearchableComboBox ListaDipendenti;
     @FXML
@@ -25,6 +26,7 @@ public class GestionaleController {
     private TextField txtCognome;
     private GestionaleDipendenti Gestionale;
     private String sesso;
+
 
     @FXML
     void initialize() throws IOException {
@@ -52,4 +54,7 @@ public class GestionaleController {
     public void onButtonMostraDati(ActionEvent event) {
     }
 
+
+    public void onButtonCreaFornitore(ActionEvent event) {
+    }
 }
