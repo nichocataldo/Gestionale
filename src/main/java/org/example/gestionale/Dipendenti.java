@@ -56,17 +56,20 @@ public class Dipendenti {
         BufferedReader br = new BufferedReader(fr);
         String riga = br.readLine();
         String[] dati;
-        while (riga != null) {
+        dati = riga.split(";");
+        while (riga != null && dati.length == 4) {
             Dipendenti dipendente = new Dipendenti();
-            System.out.println(riga);
-            dati = riga.split(";");
             dipendente.nome = dati[0];
             dipendente.cognome = dati[1];
             dipendente.sesso = dati[2];
             dipendente.data = dati[3];
             dipendenti.add(dipendente);
-            System.out.println("Aggiunto " + dipendente);
+            // System.out.println("Aggiunto " + dipendente);
             riga = br.readLine();
+            if (riga != null){
+                dati = riga.split(";");
+            }
+            System.out.println(riga);
         }
         br.close();
         fr.close();

@@ -21,17 +21,20 @@ public class GestionaleFornitori {
         BufferedReader br = new BufferedReader(fr);
         String riga = br.readLine();
         String[] dati;
-        while (riga != null) {
+        dati = riga.split(";");
+        while (riga != null && dati.length == 3) {
             GestionaleFornitori fornitore = new GestionaleFornitori();
             System.out.println(riga);
-            dati = riga.split(";");
             fornitore.nome = dati[0];
             //Se presenti questi due errore, crea un fornitore ,null, null
-            //fornitore.cognome = dati[1];
-            //fornitore.nomeAzienda = dati[2];
+            fornitore.cognome = dati[1];
+            fornitore.nomeAzienda = dati[2];
             fornitori.add(fornitore);
             System.out.println("Aggiunto " + fornitore);
             riga = br.readLine();
+            if (riga != null) {
+                dati = riga.split(";");
+            }
         }
         br.close();
         fr.close();
@@ -41,7 +44,11 @@ public class GestionaleFornitori {
         FileWriter file = new FileWriter("src/main/java/Module/fornitori.cvs");
         BufferedWriter bw = new BufferedWriter(file);
         for (int i = 0; i < fornitori.size(); i++){
-            bw.write(fornitori.get(i).nome + ";" + fornitori.get(i).cognome + ";" + fornitori.get(i).nomeAzienda + "\n");
+            bw.write(fornitori.get(i).nome + ";" + fornitori.get(i).cognome + ";" + fornitori.get(i).nomeAzienda);
+            if (fornitori.get(i).nomeAzienda == null){
+                bw.write(" ");
+            }
+            bw.write("\n");
         }
         bw.close();
         file.close();
