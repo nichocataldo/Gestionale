@@ -49,13 +49,6 @@ public class GestionaleController {
     private ArrayList<Dipendenti> dipendenti = new ArrayList<>();
     private ArrayList<GestionaleFornitori> fornitori = new ArrayList<>();
 
-    private void Alert(){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Errore");
-        alert.setHeaderText("ERRORE D'INSERIMENTO");
-        alert.setContentText("Inserire tutti i campi richiesti.");
-        alert.showAndWait();
-    }
     @FXML
     void initialize() throws IOException {
         txtNome.setPromptText("Nome");
@@ -145,7 +138,7 @@ public class GestionaleController {
             alert.setContentText("Inserire tutti i campi richiesti.");
             alert.showAndWait();
         }
-        else if(!ChkTypeFornitori.isSelected() &&txtNomeAziendaFornitore.getText().equals("")){
+        else if(!ChkTypeFornitori.isSelected() && txtNomeAziendaFornitore.getText().equals("")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("ERRORE D'INSERIMENTO");
@@ -159,7 +152,7 @@ public class GestionaleController {
             }
             else {
                 fornitori.add(GestionaleFornitori.creaFornitori(" ", " ",txtNomeAziendaFornitore.getText()));
-                ListaFornitori.getItems().add(fornitori.get(fornitori.size()-1).getNome() + " " + fornitori.get(fornitori.size()-1).getCognome());
+                ListaFornitori.getItems().add(fornitori.get(fornitori.size()-1).getNomeAzienda());
             }
             GestionaleFornitori.salvaFornitori(fornitori);
             txtNomeFornitore.clear();
@@ -186,19 +179,28 @@ public class GestionaleController {
     }
 
     public void onButtonPaga(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Conferma pagamento");
-        alert.setContentText("Sei sicuro di volere pagare?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            // ... user chose OK
-        } else {
-            alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setHeaderText("Pagamento annullato");
-            alert.setContentText("Il tuo pagamento è stato annullato!");
+        if (txtFornitorePagamento.getText().equals("") || ListaFornitori.getItems().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Importo o fornitore mancante!.");
             alert.showAndWait();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Conferma pagamento");
+            alert.setContentText("Sei sicuro di volere pagare?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                // ... user chose OK
+            } else {
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Pagamento annullato");
+                alert.setContentText("Il tuo pagamento è stato annullato!");
+                alert.showAndWait();
+            }
         }
     }
 }
