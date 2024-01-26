@@ -28,7 +28,13 @@ public class GestionaleController {
     private GestionaleFornitori Fornitori;
     private String sesso;
 
-
+    private void Alert(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Errore");
+        alert.setHeaderText("ERRORE D'INSERIMENTO");
+        alert.setContentText("Inserire tutti i campi richiesti.");
+        alert.showAndWait();
+    }
     @FXML
     void initialize() throws IOException {
         txtNome.setPromptText("Nome");
