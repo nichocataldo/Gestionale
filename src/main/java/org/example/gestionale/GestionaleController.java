@@ -66,6 +66,10 @@ public class GestionaleController {
         for (int i = 0; i < dipendenti.size(); i++){
             ListaDipendenti.getItems().add(dipendenti.get(i).getNome() + " " + dipendenti.get(i).getCognome()); // Aggiunge al CheckBox
         }
+        fornitori.addAll(GestionaleFornitori.caricaFornitori());
+        for (int i = 0; i < fornitori.size() ; i++) {
+            ListaFornitori.getItems().add(fornitori.get(i).getNome() + " " + fornitori.get(i).getCognome());
+        }
         System.out.println(dipendenti);
         txtNomeFornitore.setPromptText("Nome");
         txtCognomeFornitore.setPromptText("Cognome");

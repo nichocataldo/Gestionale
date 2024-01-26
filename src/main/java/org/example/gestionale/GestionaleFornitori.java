@@ -40,7 +40,7 @@ public class GestionaleFornitori {
         FileWriter file = new FileWriter("src/main/java/Module/fornitori.cvs");
         BufferedWriter bw = new BufferedWriter(file);
         for (int i = 0; i < fornitori.size(); i++){
-            bw.write(fornitori.get(i).nome + ";" + fornitori.get(i).cognome + ";" + fornitori.get(i).nomeAzienda);
+            bw.write(fornitori.get(i).nome + ";" + fornitori.get(i).cognome + ";" + fornitori.get(i).nomeAzienda + "\n");
         }
         bw.close();
         file.close();
