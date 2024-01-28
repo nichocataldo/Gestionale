@@ -61,7 +61,10 @@ public class GestionaleController {
         }
         fornitori.addAll(GestionaleFornitori.caricaFornitori());
         for (int i = 0; i < fornitori.size() ; i++) {
-            ListaFornitori.getItems().add(fornitori.get(i).getNome() + " " + fornitori.get(i).getCognome());
+            if(fornitori.get(i).getNomeAzienda().equals(" "))
+                ListaFornitori.getItems().add(fornitori.get(i).getNome() + " " + fornitori.get(i).getCognome());
+            else
+                ListaFornitori.getItems().add(fornitori.get(i).getNomeAzienda());
         }
         System.out.println(dipendenti);
         txtNomeFornitore.setPromptText("Nome");
@@ -167,11 +170,16 @@ public class GestionaleController {
         else{
             if(ChkTypeFornitori.isSelected()) {
                 fornitori.add(GestionaleFornitori.creaFornitori(txtNomeFornitore.getText(), txtCognomeFornitore.getText()," "));
-                ListaFornitori.getItems().add(fornitori.get(fornitori.size()-1).getNome() + " " + fornitori.get(fornitori.size()-1).getCognome());
             }
             else {
                 fornitori.add(GestionaleFornitori.creaFornitori(" ", " ",txtNomeAziendaFornitore.getText()));
-                ListaFornitori.getItems().add(fornitori.get(fornitori.size()-1).getNomeAzienda());
+            }
+            if(!fornitori.isEmpty()) {
+                if (fornitori.get(fornitori.size() - 1).getNomeAzienda().equals(" ")) {
+                    ListaFornitori.getItems().add(fornitori.get(fornitori.size() - 1).getNome() + " " + fornitori.get(fornitori.size() - 1).getCognome());
+                } else {
+                    ListaFornitori.getItems().add(fornitori.get(fornitori.size() - 1).getNomeAzienda());
+                }
             }
             GestionaleFornitori.salvaFornitori(fornitori);
             txtNomeFornitore.clear();
