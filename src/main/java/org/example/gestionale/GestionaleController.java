@@ -218,7 +218,7 @@ public class GestionaleController {
             Optional<ButtonType> result = alert.showAndWait();
             //sostituire "fornitore"
             if (result.get() == ButtonType.OK) {
-                transazioni.add(Transazioni.nuovaTransazione(txtFornitorePagamento.getText(), "fornitore"));
+                transazioni.add(Transazioni.nuovaTransazione(txtFornitorePagamento.getText(), ListaFornitori.getSelectionModel().getSelectedItem().toString()));
                 Transazioni.salvaTransazioni(transazioni);
                 txtFornitorePagamento.clear();
             } else {
