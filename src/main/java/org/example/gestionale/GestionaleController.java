@@ -1,22 +1,12 @@
 package org.example.gestionale;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-
-import javafx.util.Pair;
 import org.controlsfx.control.SearchableComboBox;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -43,11 +33,13 @@ public class GestionaleController {
     private RadioButton rbModificaMaschio, rbModificaFemmina;
     @FXML
     private Label sessoDipendente;
-    private int index = -1;
+    private int indexD = -1;
+    private int indexF = -1;
     private Dipendenti Gestionale;
     private String sesso;
     private ArrayList<Dipendenti> dipendenti = new ArrayList<>();
     private ArrayList<GestionaleFornitori> fornitori = new ArrayList<>();
+    private ArrayList<Transazioni> transazioni = new ArrayList<>();
 
     @FXML
     void initialize() throws IOException {
@@ -61,8 +53,12 @@ public class GestionaleController {
         }
         fornitori.addAll(GestionaleFornitori.caricaFornitori());
         for (int i = 0; i < fornitori.size() ; i++) {
-            ListaFornitori.getItems().add(fornitori.get(i).getNome() + " " + fornitori.get(i).getCognome());
+            if(fornitori.get(i).getNomeAzienda().equals(" "))
+                ListaFornitori.getItems().add(fornitori.get(i).getNome() + " " + fornitori.get(i).getCognome());
+            else
+                ListaFornitori.getItems().add(fornitori.get(i).getNomeAzienda());
         }
+        transazioni.addAll(Transazioni.caricaTransazioni());
         System.out.println(dipendenti);
         txtNomeFornitore.setPromptText("Nome");
         txtCognomeFornitore.setPromptText("Cognome");
@@ -93,8 +89,8 @@ public class GestionaleController {
     }
     public void onButtonModificaDipendente(ActionEvent actionEvent) throws IOException {
         Dipendenti dipendente = null;
-        if (index != -1) {
-            dipendente = dipendenti.get(index);
+        if (indexD != -1) {
+            dipendente = dipendenti.get(indexD);
         }
         if (txtModificaNome.getText().isEmpty() || txtModificaCognome.getText().isEmpty() || txtModificaData.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -110,7 +106,7 @@ public class GestionaleController {
             else
                 sesso = dipendente.getSesso();
         }
-        dipendenti.get(index).modificaDipendente(txtModificaNome.getText(),txtModificaCognome.getText(),sesso,txtModificaData.getText());
+        dipendenti.get(indexD).modificaDipendente(txtModificaNome.getText(),txtModificaCognome.getText(),sesso,txtModificaData.getText());
         Dipendenti.salvaDipendenti(dipendenti);
         txtModificaNome.setText(dipendente.getNome());
         txtModificaCognome.setText(dipendente.getCognome());
@@ -119,26 +115,26 @@ public class GestionaleController {
     }
     public void onButtonRimuoviDipendente(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        if (index != -1) {
-            Dipendenti dipendente = dipendenti.get(index);
+        if (indexD != -1) {
+            Dipendenti dipendente = dipendenti.get(indexD);
             alert.setTitle("Confirmation Dialog");
             alert.setHeaderText("Conferma rimozione");
-            if (dipendente.getSesso() == "Maschio") {
+            if (dipendente.getSesso().equals("Maschio")) {
                 alert.setContentText("Rimuovere il dipendente " + dipendente.getNome() + " " + dipendente.getCognome() + "?");
-            } else if (dipendente.getSesso() == "Femmina") {
+            } else if (dipendente.getSesso().equals("Femmina")) {
                 alert.setContentText("Rimuovere la dipendente " + dipendente.getNome() + " " + dipendente.getCognome() + "?");
             }
             Optional<ButtonType> result = alert.showAndWait();
             if (alert.getResult() == ButtonType.OK) {
-                dipendenti.remove(index);
-                ListaDipendenti.getItems().remove(index);
+                dipendenti.remove(indexD);
+                ListaDipendenti.getItems().remove(indexD);
                 Dipendenti.salvaDipendenti(dipendenti);
             }
         }
     }
     public void onListaDipendentiAction(ActionEvent actionEvent) {
-        index = ListaDipendenti.getSelectionModel().getSelectedIndex();
-        Dipendenti dipendente = dipendenti.get(index);
+        indexD = ListaDipendenti.getSelectionModel().getSelectedIndex();
+        Dipendenti dipendente = dipendenti.get(indexD);
         txtModificaNome.setText(dipendente.getNome());
         txtModificaCognome.setText(dipendente.getCognome());
         txtModificaData.setText(dipendente.getData());
@@ -167,11 +163,16 @@ public class GestionaleController {
         else{
             if(ChkTypeFornitori.isSelected()) {
                 fornitori.add(GestionaleFornitori.creaFornitori(txtNomeFornitore.getText(), txtCognomeFornitore.getText()," "));
-                ListaFornitori.getItems().add(fornitori.get(fornitori.size()-1).getNome() + " " + fornitori.get(fornitori.size()-1).getCognome());
             }
             else {
                 fornitori.add(GestionaleFornitori.creaFornitori(" ", " ",txtNomeAziendaFornitore.getText()));
-                ListaFornitori.getItems().add(fornitori.get(fornitori.size()-1).getNomeAzienda());
+            }
+            if(!fornitori.isEmpty()) {
+                if (fornitori.get(fornitori.size() - 1).getNomeAzienda().equals(" ")) {
+                    ListaFornitori.getItems().add(fornitori.get(fornitori.size() - 1).getNome() + " " + fornitori.get(fornitori.size() - 1).getCognome());
+                } else {
+                    ListaFornitori.getItems().add(fornitori.get(fornitori.size() - 1).getNomeAzienda());
+                }
             }
             GestionaleFornitori.salvaFornitori(fornitori);
             txtNomeFornitore.clear();
@@ -196,23 +197,35 @@ public class GestionaleController {
         }
 
     }
-    public void onButtonPaga(ActionEvent event) {
-        if (txtFornitorePagamento.getText().equals("") || ListaFornitori.getItems().isEmpty()){
+
+    public void onListaFornitoriPaga(ActionEvent actionEvent) {
+        indexF = ListaFornitori.getSelectionModel().getSelectedIndex();
+        System.out.println(indexF);
+    }
+    public void onButtonPaga(ActionEvent event) throws IOException {
+        if (txtFornitorePagamento.getText().equals("") || ListaFornitori.getSelectionModel().getSelectedIndex() == -1){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("ERRORE D'INSERIMENTO");
             alert.setContentText("Importo o fornitore mancante!.");
             alert.showAndWait();
-        }
-        else{
+        } else if (!Transazioni.isNumber(txtFornitorePagamento.getText())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Importo inserito non valido!.");
+            alert.showAndWait();
+        } else{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
             alert.setHeaderText("Conferma pagamento");
             alert.setContentText("Sei sicuro di volere pagare?");
             Optional<ButtonType> result = alert.showAndWait();
+            //sostituire "fornitore"
             if (result.get() == ButtonType.OK) {
-                // ... user chose OK
-
+                transazioni.add(Transazioni.nuovaTransazione("-"+ txtFornitorePagamento.getText(), ListaFornitori.getSelectionModel().getSelectedItem().toString()));
+                Transazioni.salvaTransazioni(transazioni);
+                txtFornitorePagamento.clear();
             } else {
                 alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
@@ -222,6 +235,4 @@ public class GestionaleController {
             }
         }
     }
-
-
 }

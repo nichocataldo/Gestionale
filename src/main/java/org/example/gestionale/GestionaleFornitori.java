@@ -20,13 +20,14 @@ public class GestionaleFornitori {
         FileReader fr = new FileReader("src/main/java/Module/fornitori.cvs");
         BufferedReader br = new BufferedReader(fr);
         String riga = br.readLine();
-        String[] dati;
-        dati = riga.split(";");
+        String[] dati = new String[0];
+        if(riga != null) {
+            dati = riga.split(";");
+        }
         while (riga != null && dati.length == 3) {
             GestionaleFornitori fornitore = new GestionaleFornitori();
             System.out.println(riga);
             fornitore.nome = dati[0];
-            //Se presenti questi due errore, crea un fornitore ,null, null
             fornitore.cognome = dati[1];
             fornitore.nomeAzienda = dati[2];
             fornitori.add(fornitore);
