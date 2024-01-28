@@ -55,7 +55,7 @@ public class Dipendenti {
         FileReader fr = new FileReader("src/main/java/Module/dipendenti.cvs");
         BufferedReader br = new BufferedReader(fr);
         String riga = br.readLine();
-        String[] dati = new String[0];
+        String[] dati = null;
         if (riga != null) {
             dati = riga.split(";");
         }
