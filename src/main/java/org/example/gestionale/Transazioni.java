@@ -27,10 +27,13 @@ public class Transazioni {
         fr.close();
         return transazioni;
     }
-    static public void salvaTransazioni(ArrayList<GestionaleFornitori> fornitori) throws IOException {
+    static public void salvaTransazioni(ArrayList<Transazioni> transazioni) throws IOException {
         FileWriter file = new FileWriter("src/main/java/Module/Transazioni.cvs");
         BufferedWriter bw = new BufferedWriter(file);
-
+        for (int i = 0; i < transazioni.size(); i++){
+            bw.write(transazioni.get(i).importo);
+            bw.write("\n");
+        }
         bw.close();
         file.close();
     }

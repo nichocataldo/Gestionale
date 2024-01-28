@@ -48,6 +48,7 @@ public class GestionaleController {
     private String sesso;
     private ArrayList<Dipendenti> dipendenti = new ArrayList<>();
     private ArrayList<GestionaleFornitori> fornitori = new ArrayList<>();
+    private ArrayList<Transazioni> transazioni = new ArrayList<>();
 
     @FXML
     void initialize() throws IOException {
@@ -66,6 +67,7 @@ public class GestionaleController {
             else
                 ListaFornitori.getItems().add(fornitori.get(i).getNomeAzienda());
         }
+        transazioni.addAll(Transazioni.caricaTransazioni());
         System.out.println(dipendenti);
         txtNomeFornitore.setPromptText("Nome");
         txtCognomeFornitore.setPromptText("Cognome");
@@ -204,7 +206,7 @@ public class GestionaleController {
         }
 
     }
-    public void onButtonPaga(ActionEvent event) {
+    public void onButtonPaga(ActionEvent event) throws IOException {
         if (txtFornitorePagamento.getText().equals("") || ListaFornitori.getItems().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
@@ -219,8 +221,9 @@ public class GestionaleController {
             alert.setContentText("Sei sicuro di volere pagare?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                // ... user chose OK
-
+                transazioni.add(Transazioni.nuovaTransazione(txtFornitorePagamento.getText()));
+                Transazioni.salvaTransazioni(transazioni);
+                txtFornitorePagamento.clear();
             } else {
                 alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
