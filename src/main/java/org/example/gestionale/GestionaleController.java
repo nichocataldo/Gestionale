@@ -220,8 +220,9 @@ public class GestionaleController {
             alert.setHeaderText("Conferma pagamento");
             alert.setContentText("Sei sicuro di volere pagare?");
             Optional<ButtonType> result = alert.showAndWait();
+            //sostituire "fornitore"
             if (result.get() == ButtonType.OK) {
-                transazioni.add(Transazioni.nuovaTransazione(txtFornitorePagamento.getText()));
+                transazioni.add(Transazioni.nuovaTransazione(txtFornitorePagamento.getText(), "fornitore"));
                 Transazioni.salvaTransazioni(transazioni);
                 txtFornitorePagamento.clear();
             } else {
