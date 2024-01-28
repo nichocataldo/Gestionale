@@ -49,7 +49,6 @@ public class Dipendenti {
      * Metodo che permette il caricamento di dati dei dipendenti precedentemente salvati.
      * @throws IOException
      */
-    // Nota: Da ridiscutere (molto probabilmente il read lo si deve fare nel Controller)
     static public ArrayList<Dipendenti> caricaDipedenti() throws IOException {
         ArrayList<Dipendenti> dipendenti = new ArrayList<>();
         FileReader fr = new FileReader("src/main/java/Module/dipendenti.cvs");

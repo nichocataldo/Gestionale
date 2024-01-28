@@ -209,8 +209,13 @@ public class GestionaleController {
             alert.setHeaderText("ERRORE D'INSERIMENTO");
             alert.setContentText("Importo o fornitore mancante!.");
             alert.showAndWait();
-        }
-        else{
+        } else if (!Transazioni.isNumber(txtFornitorePagamento.getText())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Importo inserito non valido!.");
+            alert.showAndWait();
+        } else{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
             alert.setHeaderText("Conferma pagamento");
@@ -218,7 +223,7 @@ public class GestionaleController {
             Optional<ButtonType> result = alert.showAndWait();
             //sostituire "fornitore"
             if (result.get() == ButtonType.OK) {
-                transazioni.add(Transazioni.nuovaTransazione(txtFornitorePagamento.getText(), ListaFornitori.getSelectionModel().getSelectedItem().toString()));
+                transazioni.add(Transazioni.nuovaTransazione("-"+ txtFornitorePagamento.getText(), ListaFornitori.getSelectionModel().getSelectedItem().toString()));
                 Transazioni.salvaTransazioni(transazioni);
                 txtFornitorePagamento.clear();
             } else {

@@ -13,6 +13,14 @@ public class Transazioni {
         transazioni.cliente = cliente;
         return transazioni;
     }
+    public static boolean isNumber(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
     static public ArrayList<Transazioni> caricaTransazioni() throws IOException {
         ArrayList<Transazioni> transazioni = new ArrayList<>();
         FileReader fr = new FileReader("src/main/java/Module/Transazioni.cvs");
