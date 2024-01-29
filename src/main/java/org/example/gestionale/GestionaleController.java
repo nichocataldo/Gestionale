@@ -127,6 +127,7 @@ public class GestionaleController {
         txtModificaData.clear();
         rbModificaMaschio.setSelected(false);
         rbModificaFemmina.setSelected(false);
+        sessoDipendente.setText("-");
         /*
         txtModificaNome.setText(dipendente.getNome());
         txtModificaCognome.setText(dipendente.getCognome());
@@ -149,9 +150,17 @@ public class GestionaleController {
             if (alert.getResult() == ButtonType.OK) {
                 dipendenti.remove(indexD);
                 ListaDipendenti.getItems().remove(indexD);
-                Dipendenti.salvaDipendenti(dipendenti);
+                if (!dipendenti.isEmpty()) {
+                    Dipendenti.salvaDipendenti(dipendenti);
+                }
                 ListaDipendenti.getSelectionModel().select(-1);
                 indexD = -1;
+                txtModificaNome.clear();
+                txtModificaCognome.clear();
+                txtModificaData.clear();
+                rbModificaMaschio.setSelected(false);
+                rbModificaFemmina.setSelected(false);
+                sessoDipendente.setText("-");
             }
         }
     }
