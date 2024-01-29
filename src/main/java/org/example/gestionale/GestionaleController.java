@@ -15,7 +15,6 @@ public class GestionaleController {
     public RadioButton rbMaschio;
     public RadioButton rbFemmina;
     public ToggleGroup Sesso;
-
     public CheckBox chkTypeClienti;
     public TextField txtNomeCliente;
     public TextField txtCognomeCliente;
@@ -260,6 +259,7 @@ public class GestionaleController {
                 txtFornitorePagamento.clear();
                 ListaFornitori.getSelectionModel().select(-1);
                 indexF = -1;
+                System.out.println(Transazioni.totaleConto());
             } else {
                 alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
