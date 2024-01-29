@@ -3,9 +3,9 @@ package org.example.gestionale;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -15,6 +15,11 @@ public class GestionaleController {
     public RadioButton rbMaschio;
     public RadioButton rbFemmina;
     public ToggleGroup Sesso;
+
+    public CheckBox chkTypeClienti;
+    public TextField txtNomeCliente;
+    public TextField txtCognomeCliente;
+    public TextField txtNomeAziendaCliente;
     public TextField txtNomeFornitore;
     public TextField txtCognomeFornitore;
     public TextField txtNomeAziendaFornitore;
@@ -46,6 +51,12 @@ public class GestionaleController {
         txtNome.setPromptText("Nome");
         txtCognome.setPromptText("Cognome");
         DatePicker.setPromptText("Data");
+
+        txtNomeCliente.setPromptText("Nome");
+        txtCognomeCliente.setPromptText("Cognome");
+        txtNomeAziendaCliente.setPromptText("Nome Azienda");
+
+
         Gestionale = new Dipendenti();
         dipendenti.addAll(Dipendenti.caricaDipedenti());
         for (int i = 0; i < dipendenti.size(); i++){
@@ -64,6 +75,7 @@ public class GestionaleController {
         txtCognomeFornitore.setPromptText("Cognome");
         txtNomeAziendaFornitore.setPromptText("Nome Azienda");
         txtFornitorePagamento.setPromptText("Importo");
+
     }
     public void onButtonCreaDipendente(ActionEvent event) throws IOException {
         if (txtNome.getText().isEmpty() || txtCognome.getText().isEmpty() || DatePicker.getValue() == null || (!rbFemmina.isSelected() && !rbMaschio.isSelected())){
@@ -248,4 +260,40 @@ public class GestionaleController {
             }
         }
     }
+
+    public void onButtonCreaCliente(ActionEvent actionEvent) {
+        if (chkTypeClienti.isSelected() && (txtNomeCliente.getText().equals("") || txtCognomeCliente.getText().equals(""))){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Inserire tutti i campi richiesti.");
+            alert.showAndWait();
+        }
+        else if(!chkTypeClienti.isSelected() &&txtNomeAziendaCliente.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Inserire tutti i campi richiesti.");
+            alert.showAndWait();
+        }
+
+    }
+
+    public void checkCliente(ActionEvent actionEvent) {
+        if (chkTypeClienti.isSelected()){
+            txtNomeCliente.setDisable(false);
+            txtCognomeCliente.setDisable(false);
+            txtNomeAziendaCliente.setDisable(true);
+            txtNomeAziendaCliente.setText("");
+        }else{
+            txtNomeCliente.setDisable(true);
+            txtCognomeCliente.setDisable(true);
+            txtNomeAziendaCliente.setDisable(false);
+            txtNomeCliente.setText("");
+            txtCognomeCliente.setText("");
+
+        }
+    }
+
+
 }
