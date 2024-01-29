@@ -108,10 +108,19 @@ public class GestionaleController {
         }
         dipendenti.get(indexD).modificaDipendente(txtModificaNome.getText(),txtModificaCognome.getText(),sesso,txtModificaData.getText());
         Dipendenti.salvaDipendenti(dipendenti);
+        ListaDipendenti.getSelectionModel().select(-1);
+        indexD = -1;
+        txtModificaNome.clear();
+        txtModificaCognome.clear();
+        txtModificaData.clear();
+        rbModificaMaschio.setSelected(false);
+        rbModificaFemmina.setSelected(false);
+        /*
         txtModificaNome.setText(dipendente.getNome());
         txtModificaCognome.setText(dipendente.getCognome());
         txtModificaData.setText(dipendente.getData());
         sessoDipendente.setText(dipendente.getSesso());
+        */
     }
     public void onButtonRimuoviDipendente(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -129,6 +138,8 @@ public class GestionaleController {
                 dipendenti.remove(indexD);
                 ListaDipendenti.getItems().remove(indexD);
                 Dipendenti.salvaDipendenti(dipendenti);
+                ListaDipendenti.getSelectionModel().select(-1);
+                indexD = -1;
             }
         }
     }
@@ -226,6 +237,8 @@ public class GestionaleController {
                 transazioni.add(Transazioni.nuovaTransazione("-"+ txtFornitorePagamento.getText(), ListaFornitori.getSelectionModel().getSelectedItem().toString()));
                 Transazioni.salvaTransazioni(transazioni);
                 txtFornitorePagamento.clear();
+                ListaFornitori.getSelectionModel().select(-1);
+                indexF = -1;
             } else {
                 alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
