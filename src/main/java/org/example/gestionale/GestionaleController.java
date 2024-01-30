@@ -26,6 +26,8 @@ public class GestionaleController {
     public TextField txtFornitorePagamento;
     public SearchableComboBox ListaFornitori;
     @FXML
+    private Label lbltotaleConto;
+    @FXML
     private SearchableComboBox ListaDipendenti;
     @FXML
     private TextField txtNome;
@@ -50,12 +52,9 @@ public class GestionaleController {
         txtNome.setPromptText("Nome");
         txtCognome.setPromptText("Cognome");
         DatePicker.setPromptText("Data");
-
         txtNomeCliente.setPromptText("Nome");
         txtCognomeCliente.setPromptText("Cognome");
         txtNomeAziendaCliente.setPromptText("Nome Azienda");
-
-
         Gestionale = new Dipendenti();
         dipendenti.addAll(Dipendenti.caricaDipedenti());
         for (int i = 0; i < dipendenti.size(); i++){
@@ -250,7 +249,6 @@ public class GestionaleController {
             alert.setHeaderText("Conferma pagamento");
             alert.setContentText("Sei sicuro di volere pagare?");
             Optional<ButtonType> result = alert.showAndWait();
-            //sostituire "fornitore"
             if (result.get() == ButtonType.OK) {
                 transazioni.add(Transazioni.nuovaTransazione("-"+ txtFornitorePagamento.getText(), ListaFornitori.getSelectionModel().getSelectedItem().toString()));
                 Transazioni.salvaTransazioni(transazioni);
@@ -258,6 +256,8 @@ public class GestionaleController {
                 ListaFornitori.getSelectionModel().select(-1);
                 indexF = -1;
                 System.out.println(Transazioni.totaleConto());
+                //DA SISTEMARE (RISULTA SEMPRE NULL)
+                //lbltotaleConto.setText(" " + Transazioni.totaleConto());
             } else {
                 alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
@@ -283,9 +283,7 @@ public class GestionaleController {
             alert.setContentText("Inserire tutti i campi richiesti.");
             alert.showAndWait();
         }
-
     }
-
     public void checkCliente(ActionEvent actionEvent) {
         if (chkTypeClienti.isSelected()){
             txtNomeCliente.setDisable(false);

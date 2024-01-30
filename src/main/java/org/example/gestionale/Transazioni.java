@@ -87,7 +87,6 @@ public class Transazioni {
             transazione.importo = dati[0];
             transazione.cliente = dati[1];
             somma = somma + Float.parseFloat(dati[0]);
-
             if (riga != null) {
                 dati = riga.split(";");
             }
