@@ -93,10 +93,23 @@
                               <Font name="System Italic" size="11.0" />
                            </font>
                         </CheckBox>
-                        <TextField fx:id="txtNomeCliente" layoutX="23.0" layoutY="107.0" />
-                        <TextField fx:id="txtCognomeCliente" layoutX="23.0" layoutY="143.0" />
+                        <TextField fx:id="txtNomeCliente" disable="true" layoutX="23.0" layoutY="107.0" />
+                        <TextField fx:id="txtCognomeCliente" disable="true" layoutX="23.0" layoutY="143.0" />
                         <TextField fx:id="txtNomeAziendaCliente" layoutX="23.0" layoutY="179.0" />
                         <Button layoutX="23.0" layoutY="215.0" mnemonicParsing="false" onAction="#onButtonCreaCliente" prefHeight="42.0" prefWidth="179.0" text="Aggiungi cliente" />
+                        <Label layoutX="413.0" layoutY="39.0" prefHeight="25.0" prefWidth="80.0" text="FATTURA">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <SearchableComboBox fx:id="ListaClienti" layoutX="367.0" layoutY="81.0" onAction="#onListaClientiPaga" />
+                        <TextField fx:id="txtFatturaClienti" layoutX="379.0" layoutY="117.0" />
+                        <Button layoutX="365.0" layoutY="153.0" mnemonicParsing="false" onAction="#onButtonFattura" prefHeight="42.0" prefWidth="179.0" text="Invia Fattura" />
+                        <Label layoutX="378.0" layoutY="58.0" prefHeight="17.0" prefWidth="151.0" text="Completa tutte le caselle con i relativi dati">
+                           <font>
+                              <Font name="System Italic" size="8.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
               </content>
             </Tab>
