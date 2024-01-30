@@ -149,9 +149,7 @@ public class GestionaleController {
             if (alert.getResult() == ButtonType.OK) {
                 dipendenti.remove(indexD);
                 ListaDipendenti.getItems().remove(indexD);
-                if (!dipendenti.isEmpty()) {
-                    Dipendenti.salvaDipendenti(dipendenti);
-                }
+                Dipendenti.salvaDipendenti(dipendenti);
                 ListaDipendenti.getSelectionModel().select(-1);
                 indexD = -1;
                 txtModificaNome.clear();
