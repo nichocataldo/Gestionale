@@ -3,6 +3,7 @@ package org.example.gestionale;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
@@ -26,7 +27,15 @@ public class GestionaleController {
     public TextField txtFornitorePagamento;
     public SearchableComboBox ListaFornitori;
     @FXML
-    private Label lbltotaleConto;
+    private Label logLastID10, logLastID9, logLastID8, logLastID7, logLastID6, logLastID5, logLastID4, logLastID3, logLastID2, logLastID1;
+    @FXML
+    private Label logLastAmount10, logLastAmount9, logLastAmount8, logLastAmount7, logLastAmount6, logLastAmount5, logLastAmount4, logLastAmount3, logLastAmount2, logLastAmount1;
+    @FXML
+    private Label logLastParty10, logLastParty9, logLastParty8, logLastParty7, logLastParty6, logLastParty5, logLastParty4, logLastParty3, logLastParty2, logLastParty1;
+    @FXML
+    private Label logLastType10, logLastType9, logLastType8, logLastType7, logLastType6, logLastType5, logLastType4, logLastType3, logLastType2, logLastType1;
+    @FXML
+    private Label lbltotaleConto, lblTotaleEntrate, lblTotaleUscite;
     @FXML
     private SearchableComboBox ListaDipendenti;
     @FXML
@@ -41,6 +50,7 @@ public class GestionaleController {
     private Label sessoDipendente;
     private int indexD = -1;
     private int indexF = -1;
+    private float conto = 0, entrate = 0, uscite = 0;
     private Dipendenti Gestionale;
     private String sesso;
     private ArrayList<Dipendenti> dipendenti = new ArrayList<>();
@@ -68,12 +78,216 @@ public class GestionaleController {
                 ListaFornitori.getItems().add(fornitori.get(i).getNomeAzienda());
         }
         transazioni.addAll(Transazioni.caricaTransazioni());
+        conto = Transazioni.totaleConto(transazioni);
+        entrate = Transazioni.totaleEntrate(transazioni);
+        uscite = Transazioni.totaleUscite(transazioni);
+        lbltotaleConto.setText(String.valueOf(conto) + "€");
+        lblTotaleEntrate.setText(String.valueOf(entrate) + "€");
+        lblTotaleUscite.setText(String.valueOf(uscite) + "€");
+        System.out.println("conto: " + String.valueOf(conto));
         System.out.println(dipendenti);
         txtNomeFornitore.setPromptText("Nome");
         txtCognomeFornitore.setPromptText("Cognome");
         txtNomeAziendaFornitore.setPromptText("Nome Azienda");
         txtFornitorePagamento.setPromptText("Importo");
-
+        if(transazioni.size() < 10){
+            aggiornaTransazioni_10L();
+        } else {
+            aggiornaTransazioni_10P();
+        }
+    }
+    public void aggiornaTransazioni_10L(){
+        int i = transazioni.size();
+        logLastID1.setText(String.valueOf(i));
+        logLastAmount1.setText(transazioni.get(i-1).getImporto() + "€");
+        logLastParty1.setText(transazioni.get(i-1).getCliente());
+        if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+            logLastType1.setText("Uscita");
+        } else {
+            logLastType1.setText("Entrata");
+        }
+        if ((i -= 1) > 0){
+            logLastID2.setText(String.valueOf(i));
+            logLastAmount2.setText(transazioni.get(i-1).getImporto() + "€");
+            logLastParty2.setText(transazioni.get(i-1).getCliente());
+            if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+                logLastType2.setText("Uscita");
+            } else {
+                logLastType2.setText("Entrata");
+            }
+        }
+        if ((i -= 1) > 0){
+            logLastID2.setText(String.valueOf(i));
+            logLastAmount2.setText(transazioni.get(i-1).getImporto() + "€");
+            logLastParty2.setText(transazioni.get(i-1).getCliente());
+            if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+                logLastType2.setText("Uscita");
+            } else {
+                logLastType2.setText("Entrata");
+            }
+        }
+        if ((i -= 1) > 0){
+            logLastID3.setText(String.valueOf(i));
+            logLastAmount3.setText(transazioni.get(i-1).getImporto() + "€");
+            logLastParty3.setText(transazioni.get(i-1).getCliente());
+            if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+                logLastType3.setText("Uscita");
+            } else {
+                logLastType3.setText("Entrata");
+            }
+        }
+        if ((i -= 1) > 0){
+            logLastID4.setText(String.valueOf(i));
+            logLastAmount4.setText(transazioni.get(i-1).getImporto() + "€");
+            logLastParty4.setText(transazioni.get(i-1).getCliente());
+            if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+                logLastType4.setText("Uscita");
+            } else {
+                logLastType4.setText("Entrata");
+            }
+        }
+        if ((i -= 1) > 0){
+            logLastID5.setText(String.valueOf(i));
+            logLastAmount5.setText(transazioni.get(i-1).getImporto() + "€");
+            logLastParty5.setText(transazioni.get(i-1).getCliente());
+            if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+                logLastType5.setText("Uscita");
+            } else {
+                logLastType5.setText("Entrata");
+            }
+        }
+        if ((i -= 1) > 0){
+            logLastID6.setText(String.valueOf(i));
+            logLastAmount6.setText(transazioni.get(i-1).getImporto() + "€");
+            logLastParty6.setText(transazioni.get(i-1).getCliente());
+            if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+                logLastType6.setText("Uscita");
+            } else {
+                logLastType6.setText("Entrata");
+            }
+        }
+        if ((i -= 1) > 0){
+            logLastID7.setText(String.valueOf(i));
+            logLastAmount7.setText(transazioni.get(i-1).getImporto() + "€");
+            logLastParty7.setText(transazioni.get(i-1).getCliente());
+            if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+                logLastType7.setText("Uscita");
+            } else {
+                logLastType7.setText("Entrata");
+            }
+        }
+        if ((i -= 1) > 0){
+            logLastID8.setText(String.valueOf(i));
+            logLastAmount8.setText(transazioni.get(i-1).getImporto() + "€");
+            logLastParty8.setText(transazioni.get(i-1).getCliente());
+            if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+                logLastType8.setText("Uscita");
+            } else {
+                logLastType8.setText("Entrata");
+            }
+        }
+        if ((i -= 1) > 0){
+            logLastID9.setText(String.valueOf(i));
+            logLastAmount9.setText(transazioni.get(i-1).getImporto() + "€");
+            logLastParty9.setText(transazioni.get(i-1).getCliente());
+            if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+                logLastType9.setText("Uscita");
+            } else {
+                logLastType9.setText("Entrata");
+            }
+        }
+    }
+    public void aggiornaTransazioni_10P(){
+        int i = transazioni.size();
+        logLastID1.setText(String.valueOf(i));
+        logLastAmount1.setText(transazioni.get(i-1).getImporto() + "€");
+        logLastParty1.setText(transazioni.get(i-1).getCliente());
+        if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+            logLastType1.setText("Uscita");
+        } else {
+            logLastType1.setText("Entrata");
+        }
+        i -= 1;
+        logLastID2.setText(String.valueOf(i));
+        logLastAmount2.setText(transazioni.get(i-1).getImporto() + "€");
+        logLastParty2.setText(transazioni.get(i-1).getCliente());
+        if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+            logLastType2.setText("Uscita");
+        } else {
+            logLastType2.setText("Entrata");
+        }
+        i -= 1;
+        logLastID3.setText(String.valueOf(i));
+        logLastAmount3.setText(transazioni.get(i-1).getImporto() + "€");
+        logLastParty3.setText(transazioni.get(i-1).getCliente());
+        if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+            logLastType3.setText("Uscita");
+        } else {
+            logLastType3.setText("Entrata");
+        }
+        i -= 1;
+        logLastID4.setText(String.valueOf(i));
+        logLastAmount4.setText(transazioni.get(i-1).getImporto() + "€");
+        logLastParty4.setText(transazioni.get(i-1).getCliente());
+        if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+            logLastType4.setText("Uscita");
+        } else {
+            logLastType4.setText("Entrata");
+        }
+        i -= 1;
+        logLastID5.setText(String.valueOf(i));
+        logLastAmount5.setText(transazioni.get(i-1).getImporto() + "€");
+        logLastParty5.setText(transazioni.get(i-1).getCliente());
+        if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+            logLastType5.setText("Uscita");
+        } else {
+            logLastType5.setText("Entrata");
+        }
+        i -= 1;
+        logLastID6.setText(String.valueOf(i));
+        logLastAmount6.setText(transazioni.get(i-1).getImporto() + "€");
+        logLastParty6.setText(transazioni.get(i-1).getCliente());
+        if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+            logLastType6.setText("Uscita");
+        } else {
+            logLastType6.setText("Entrata");
+        }
+        i -= 1;
+        logLastID7.setText(String.valueOf(i));
+        logLastAmount7.setText(transazioni.get(i-1).getImporto() + "€");
+        logLastParty7.setText(transazioni.get(i-1).getCliente());
+        if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+            logLastType7.setText("Uscita");
+        } else {
+            logLastType7.setText("Entrata");
+        }
+        i -= 1;
+        logLastID8.setText(String.valueOf(i));
+        logLastAmount8.setText(transazioni.get(i-1).getImporto() + "€");
+        logLastParty8.setText(transazioni.get(i-1).getCliente());
+        if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+            logLastType8.setText("Uscita");
+        } else {
+            logLastType8.setText("Entrata");
+        }
+        i -= 1;
+        logLastID9.setText(String.valueOf(i));
+        logLastAmount9.setText(transazioni.get(i-1).getImporto() + "€");
+        logLastParty9.setText(transazioni.get(i-1).getCliente());
+        if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+            logLastType9.setText("Uscita");
+        } else {
+            logLastType9.setText("Entrata");
+        }
+        i -= 1;
+        logLastID10.setText(String.valueOf(i));
+        logLastAmount10.setText(transazioni.get(i-1).getImporto() + "€");
+        logLastParty10.setText(transazioni.get(i-1).getCliente());
+        if (transazioni.get(i-1).getImporto().charAt(0) == '-'){
+            logLastType10.setText("Uscita");
+        } else {
+            logLastType10.setText("Entrata");
+        }
     }
     public void onButtonCreaDipendente(ActionEvent event) throws IOException {
         if (txtNome.getText().isEmpty() || txtCognome.getText().isEmpty() || DatePicker.getValue() == null || (!rbFemmina.isSelected() && !rbMaschio.isSelected())){
@@ -243,7 +457,13 @@ public class GestionaleController {
             alert.setHeaderText("ERRORE D'INSERIMENTO");
             alert.setContentText("Importo inserito non valido!.");
             alert.showAndWait();
-        } else{
+        } else if (Integer.valueOf(txtFornitorePagamento.getText()) > conto){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE CONTO");
+            alert.setContentText("Credito insufficiente per pagare la somma");
+            alert.showAndWait();
+        } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
             alert.setHeaderText("Conferma pagamento");
@@ -255,7 +475,17 @@ public class GestionaleController {
                 txtFornitorePagamento.clear();
                 ListaFornitori.getSelectionModel().select(-1);
                 indexF = -1;
-                System.out.println(Transazioni.totaleConto());
+                conto = Transazioni.totaleConto(transazioni);
+                entrate = Transazioni.totaleEntrate(transazioni);
+                uscite = Transazioni.totaleUscite(transazioni);
+                lbltotaleConto.setText(String.valueOf(conto) + "€");
+                lblTotaleEntrate.setText(String.valueOf(entrate) + "€");
+                lblTotaleUscite.setText(String.valueOf(uscite) + "€");
+                if(transazioni.size() < 10){
+                    aggiornaTransazioni_10L();
+                } else {
+                    aggiornaTransazioni_10P();
+                }
                 //DA SISTEMARE (RISULTA SEMPRE NULL)
                 //lbltotaleConto.setText(" " + Transazioni.totaleConto());
             } else {
@@ -299,6 +529,4 @@ public class GestionaleController {
 
         }
     }
-
-
 }

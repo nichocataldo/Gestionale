@@ -1,5 +1,7 @@
 package org.example.gestionale;
 
+import javafx.util.converter.FloatStringConverter;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -71,28 +73,42 @@ public class Transazioni {
         file.close();
     }
 
-    public static float totaleConto() throws IOException {
+    public static float totaleConto(ArrayList<Transazioni> transazioni) {
         float somma = 0;
-        FileReader fr = new FileReader("src/main/java/Module/Transazioni.cvs");
-        BufferedReader br = new BufferedReader(fr);
-        String riga = br.readLine();
-        System.out.println(riga);
-        String[] dati = new String[0];
-        if (riga != null) {
-            dati = riga.split(";");
-        }
-        while ((riga = br.readLine()) != null) {
-            Transazioni transazione = new Transazioni();
-            System.out.println(riga);
-            transazione.importo = dati[0];
-            transazione.cliente = dati[1];
-            somma = somma + Float.parseFloat(dati[0]);
-            if (riga != null) {
-                dati = riga.split(";");
+        for(Transazioni transazione:transazioni){
+            if (transazione.importo.charAt(0) == '+'){
+                somma += Float.parseFloat(transazione.importo.substring(1));
+            } else if (transazione.importo.charAt(0) == '-'){
+                somma -= Float.parseFloat(transazione.importo.substring(1));
             }
         }
-        br.close();
-        fr.close();
         return somma;
+    }
+    public static float totaleEntrate(ArrayList<Transazioni> transazioni) {
+        float entrate = 0;
+        for(Transazioni transazione:transazioni){
+            if (transazione.importo.charAt(0) == '+'){
+                entrate += Float.parseFloat(transazione.importo.substring(1));
+            }
+        }
+        return entrate;
+    }
+    public static float totaleUscite(ArrayList<Transazioni> transazioni) {
+        float uscite = 0;
+        for(Transazioni transazione:transazioni){
+            if (transazione.importo.charAt(0) == '-'){
+                uscite += Float.parseFloat(transazione.importo.substring(1));
+            }
+        }
+        return uscite;
+    }
+
+
+    public String getImporto() {
+        return importo;
+    }
+
+    public String getCliente() {
+        return cliente;
     }
 }
