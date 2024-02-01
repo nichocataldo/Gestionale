@@ -26,6 +26,8 @@ public class GestionaleController {
     public CheckBox ChkTypeFornitori;
     public TextField txtFornitorePagamento;
     public SearchableComboBox ListaFornitori;
+    public SearchableComboBox ListaClienti;
+    public TextField txtFatturaClienti;
     @FXML
     private Label logLastID10, logLastID9, logLastID8, logLastID7, logLastID6, logLastID5, logLastID4, logLastID3, logLastID2, logLastID1;
     @FXML
@@ -48,14 +50,19 @@ public class GestionaleController {
     private RadioButton rbModificaMaschio, rbModificaFemmina;
     @FXML
     private Label sessoDipendente;
+  
     private int indexD = -1;
     private int indexF = -1;
+    private int indexC = -1;
+  
     private float conto = 0, entrate = 0, uscite = 0;
+   
     private Dipendenti Gestionale;
     private String sesso;
     private ArrayList<Dipendenti> dipendenti = new ArrayList<>();
     private ArrayList<GestionaleFornitori> fornitori = new ArrayList<>();
     private ArrayList<Transazioni> transazioni = new ArrayList<>();
+    private ArrayList<GestionaleClienti> clienti = new ArrayList<>();
 
     @FXML
     void initialize() throws IOException {
@@ -76,6 +83,14 @@ public class GestionaleController {
                 ListaFornitori.getItems().add(fornitori.get(i).getNome() + " " + fornitori.get(i).getCognome());
             else
                 ListaFornitori.getItems().add(fornitori.get(i).getNomeAzienda());
+        }
+
+        clienti.addAll(GestionaleClienti.caricaClienti());
+        for (int i = 0; i < clienti.size() ; i++) {
+            if(clienti.get(i).getNomeAzienda().equals(" "))
+                ListaClienti.getItems().add(clienti.get(i).getNome() + " " + clienti.get(i).getCognome());
+            else
+                ListaClienti.getItems().add(clienti.get(i).getNomeAzienda());
         }
         transazioni.addAll(Transazioni.caricaTransazioni());
         conto = Transazioni.totaleConto(transazioni);
@@ -498,7 +513,7 @@ public class GestionaleController {
         }
     }
 
-    public void onButtonCreaCliente(ActionEvent actionEvent) {
+    public void onButtonCreaCliente(ActionEvent actionEvent) throws IOException {
         if (chkTypeClienti.isSelected() && (txtNomeCliente.getText().equals("") || txtCognomeCliente.getText().equals(""))){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
@@ -506,12 +521,31 @@ public class GestionaleController {
             alert.setContentText("Inserire tutti i campi richiesti.");
             alert.showAndWait();
         }
-        else if(!chkTypeClienti.isSelected() &&txtNomeAziendaCliente.getText().equals("")){
+        else if(!chkTypeClienti.isSelected() && txtNomeAziendaCliente.getText().equals("")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("ERRORE D'INSERIMENTO");
             alert.setContentText("Inserire tutti i campi richiesti.");
             alert.showAndWait();
+        }
+        else{
+            if(chkTypeClienti.isSelected()) {
+                clienti.add(GestionaleClienti.creaClienti(txtNomeCliente.getText(), txtCognomeCliente.getText()," "));
+            }
+            else {
+                clienti.add(GestionaleClienti.creaClienti(" ", " ",txtNomeAziendaCliente.getText()));
+            }
+            if(!clienti.isEmpty()) {
+                if (clienti.get(clienti.size() - 1).getNomeAzienda().equals(" ")) {
+                    ListaClienti.getItems().add(clienti.get(clienti.size() - 1).getNome() + " " + clienti.get(clienti.size() - 1).getCognome());
+                } else {
+                    ListaClienti.getItems().add(clienti.get(clienti.size() - 1).getNomeAzienda());
+                }
+            }
+            GestionaleClienti.salvaClienti(clienti);
+            txtNomeCliente.clear();
+            txtCognomeCliente.clear();
+            txtNomeAziendaCliente.clear();
         }
     }
     public void checkCliente(ActionEvent actionEvent) {
@@ -527,6 +561,49 @@ public class GestionaleController {
             txtNomeCliente.setText("");
             txtCognomeCliente.setText("");
 
+        }
+    }
+
+
+    public void onListaClientiPaga(ActionEvent actionEvent) {
+        indexC = ListaClienti.getSelectionModel().getSelectedIndex();
+        System.out.println(indexC);
+    }
+
+    public void onButtonFattura(ActionEvent actionEvent) throws IOException {
+        if (txtFatturaClienti.getText().equals("") || ListaClienti.getSelectionModel().getSelectedIndex() == -1){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Importo o cliente mancante!.");
+            alert.showAndWait();
+        } else if (!Transazioni.isNumber(txtFatturaClienti.getText())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("ERRORE D'INSERIMENTO");
+            alert.setContentText("Importo inserito non valido!.");
+            alert.showAndWait();
+        } else{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Conferma pagamento");
+            alert.setContentText("Sei sicuro di volere inviare la fattura?");
+            Optional<ButtonType> result = alert.showAndWait();
+            //sostituire "fornitore"
+            if (result.get() == ButtonType.OK) {
+                transazioni.add(Transazioni.nuovaTransazione("+"+ txtFatturaClienti.getText(), ListaClienti.getSelectionModel().getSelectedItem().toString()));
+                Transazioni.salvaTransazioni(transazioni);
+                txtFatturaClienti.clear();
+                ListaClienti.getSelectionModel().select(-1);
+                indexC = -1;
+                System.out.println(Transazioni.totaleConto());
+            } else {
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Pagamento annullato");
+                alert.setContentText("Il tuo pagamento è stato annullato!");
+                alert.showAndWait();
+            }
         }
     }
 }
