@@ -371,12 +371,12 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="400.0" layoutY="38.0" prefHeight="17.0" prefWidth="127.0" text="Entrate totali">
+                        <Label layoutX="400.0" layoutY="38.0" prefHeight="17.0" prefWidth="127.0" text="Entrate totali" textFill="#ee2929">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="400.0" layoutY="139.0" prefHeight="17.0" prefWidth="127.0" text="Uscite Totali">
+                        <Label layoutX="400.0" layoutY="139.0" prefHeight="17.0" prefWidth="127.0" text="Uscite Totali" textFill="#0cdd17">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
