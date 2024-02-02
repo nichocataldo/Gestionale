@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * Classe che gestisce l'applicazione a livello grafico, gestisce la dinamica e maggior parte dei dati presenti (con l'appoggio di altre classi).
+ */
 public class GestionaleController {
     public javafx.scene.control.DatePicker DatePicker;
     public RadioButton rbMaschio;
@@ -54,8 +57,6 @@ public class GestionaleController {
     private int indexF = -1;
     private int indexC = -1;
     private float conto = 0, entrate = 0, uscite = 0;
-   
-    private Dipendenti Gestionale;
     private String sesso;
     private ArrayList<Dipendenti> dipendenti = new ArrayList<>();
     private ArrayList<GestionaleFornitori> fornitori = new ArrayList<>();
@@ -74,7 +75,6 @@ public class GestionaleController {
         txtNomeCliente.setPromptText("Nome");
         txtCognomeCliente.setPromptText("Cognome");
         txtNomeAziendaCliente.setPromptText("Nome Azienda");
-        Gestionale = new Dipendenti();
         dipendenti.addAll(Dipendenti.caricaDipedenti());
         for (int i = 0; i < dipendenti.size(); i++){
             ListaDipendenti.getItems().add(dipendenti.get(i).getNome() + " " + dipendenti.get(i).getCognome()); // Aggiunge al CheckBox
@@ -98,10 +98,10 @@ public class GestionaleController {
         conto = Transazioni.totaleConto(transazioni);
         entrate = Transazioni.totaleEntrate(transazioni);
         uscite = Transazioni.totaleUscite(transazioni);
-        lbltotaleConto.setText(String.valueOf(conto) + "€");
-        lblTotaleEntrate.setText(String.valueOf(entrate) + "€");
-        lblTotaleUscite.setText(String.valueOf(uscite) + "€");
-        System.out.println("conto: " + String.valueOf(conto));
+        lbltotaleConto.setText(conto + "€");
+        lblTotaleEntrate.setText(entrate + "€");
+        lblTotaleUscite.setText(uscite + "€");
+        System.out.println("conto: " + conto);
         System.out.println(dipendenti);
         txtNomeFornitore.setPromptText("Nome");
         txtCognomeFornitore.setPromptText("Cognome");
@@ -505,7 +505,7 @@ public class GestionaleController {
             alert.setHeaderText("ERRORE D'INSERIMENTO");
             alert.setContentText("Importo inserito non valido!.");
             alert.showAndWait();
-        } else if (Integer.valueOf(txtFornitorePagamento.getText()) > conto){
+        } else if (Integer.parseInt(txtFornitorePagamento.getText()) > conto){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("ERRORE CONTO");
@@ -520,13 +520,13 @@ public class GestionaleController {
             if (result.get() == ButtonType.OK) {
                 transazioni.add(Transazioni.nuovaTransazione("-"+ txtFornitorePagamento.getText(), ListaFornitori.getSelectionModel().getSelectedItem().toString()));
                 Transazioni.salvaTransazioni(transazioni);
-                conto -= Float.valueOf(txtFornitorePagamento.getText());
-                uscite -= Float.valueOf(txtFornitorePagamento.getText());
+                conto -= Float.parseFloat(txtFornitorePagamento.getText());
+                uscite -= Float.parseFloat(txtFornitorePagamento.getText());
                 txtFornitorePagamento.clear();
                 ListaFornitori.getSelectionModel().select(-1);
                 indexF = -1;
-                lbltotaleConto.setText(String.valueOf(conto) + "€");
-                lblTotaleUscite.setText(String.valueOf(uscite) + "€");
+                lbltotaleConto.setText(conto + "€");
+                lblTotaleUscite.setText(uscite + "€");
                 if(transazioni.size() < 10){
                     aggiornaTransazioni_10L();
                 } else {
@@ -637,13 +637,13 @@ public class GestionaleController {
             if (result.get() == ButtonType.OK) {
                 transazioni.add(Transazioni.nuovaTransazione("+"+ txtFatturaClienti.getText(), ListaClienti.getSelectionModel().getSelectedItem().toString()));
                 Transazioni.salvaTransazioni(transazioni);
-                conto += Float.valueOf(txtFatturaClienti.getText());
-                entrate += Float.valueOf(txtFatturaClienti.getText());
+                conto += Float.parseFloat(txtFatturaClienti.getText());
+                entrate += Float.parseFloat(txtFatturaClienti.getText());
                 txtFatturaClienti.clear();
                 ListaClienti.getSelectionModel().select(-1);
                 indexC = -1;
-                lbltotaleConto.setText(String.valueOf(conto) + "€");
-                lblTotaleEntrate.setText(String.valueOf(entrate) + "€");
+                lbltotaleConto.setText(conto + "€");
+                lblTotaleEntrate.setText(entrate + "€");
                 if(transazioni.size() < 10){
                     aggiornaTransazioni_10L();
                 } else {

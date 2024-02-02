@@ -3,6 +3,9 @@ package org.example.gestionale;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Classe che gestisce i fornitori che collaborano con l'azienda.
+ */
 public class GestionaleFornitori {
     private String nome;
     private String cognome;
@@ -66,9 +69,9 @@ public class GestionaleFornitori {
     static public void salvaFornitori(ArrayList<GestionaleFornitori> fornitori) throws IOException {
         FileWriter file = new FileWriter("src/main/java/Module/fornitori.cvs");
         BufferedWriter bw = new BufferedWriter(file);
-        for (int i = 0; i < fornitori.size(); i++){
-            bw.write(fornitori.get(i).nome + ";" + fornitori.get(i).cognome + ";" + fornitori.get(i).nomeAzienda);
-            if (fornitori.get(i).nomeAzienda == null){
+        for (GestionaleFornitori fornitore : fornitori) {
+            bw.write(fornitore.nome + ";" + fornitore.cognome + ";" + fornitore.nomeAzienda);
+            if (fornitore.nomeAzienda == null) {
                 bw.write(" ");
             }
             bw.write("\n");

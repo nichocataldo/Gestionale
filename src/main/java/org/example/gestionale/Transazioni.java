@@ -5,6 +5,9 @@ import javafx.util.converter.FloatStringConverter;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Classe che gestisce i movimenti monetari dell'azienda.
+ */
 public class Transazioni {
     private String importo;
     private String cliente;
@@ -59,16 +62,14 @@ public class Transazioni {
         }
         // System.out.println(riga.length());
         while ((riga = br.readLine()) != null) {
-            if (riga.length() != 0) {
+            if (!riga.isEmpty()) {
                 Transazioni transazione = new Transazioni();
                 System.out.println(riga);
                 transazione.importo = dati[0];
                 transazione.cliente = dati[1];
                 transazioni.add(transazione);
                 System.out.println("Aggiunto " + transazione);
-                if (riga != null) {
-                    dati = riga.split(";");
-                }
+                dati = riga.split(";");
             }
         }
         br.close();
@@ -92,10 +93,6 @@ public class Transazioni {
             bw.write("\n");
         }
         bw.write(transazioni.get(index).importo + ";" + transazioni.get(index).cliente);
-        /* for (int i = 0; i < transazioni.size(); i++){
-            bw.write(transazioni.get(i).importo + ";" + transazioni.get(i).cliente);
-            bw.write("\n");
-        }*/
         bw.close();
         file.close();
     }

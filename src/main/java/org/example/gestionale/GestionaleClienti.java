@@ -3,6 +3,9 @@ package org.example.gestionale;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Classe che gestisce i clienti dell'azienda.
+ */
 public class GestionaleClienti {
     private String nome;
     private String cognome;
@@ -66,9 +69,9 @@ public class GestionaleClienti {
     static public void salvaClienti(ArrayList<org.example.gestionale.GestionaleClienti> clienti) throws IOException {
         FileWriter file = new FileWriter("src/main/java/Module/clienti.cvs");
         BufferedWriter bw = new BufferedWriter(file);
-        for (int i = 0; i < clienti.size(); i++){
-            bw.write(clienti.get(i).nome + ";" + clienti.get(i).cognome + ";" + clienti.get(i).nomeAzienda);
-            if (clienti.get(i).nomeAzienda == null){
+        for (GestionaleClienti cliente : clienti) {
+            bw.write(cliente.nome + ";" + cliente.cognome + ";" + cliente.nomeAzienda);
+            if (cliente.nomeAzienda == null) {
                 bw.write(" ");
             }
             bw.write("\n");

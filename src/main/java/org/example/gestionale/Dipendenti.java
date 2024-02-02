@@ -3,6 +3,9 @@ package org.example.gestionale;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Classe che gestisce i dipendenti dell'azienda.
+ */
 public class Dipendenti {
     private String nome;
     private String cognome;
@@ -85,8 +88,8 @@ public class Dipendenti {
     static public void salvaDipendenti(ArrayList<Dipendenti> dipendenti) throws IOException {
         FileWriter file = new FileWriter("src/main/java/Module/dipendenti.cvs");
         BufferedWriter bw = new BufferedWriter(file);
-        for (int i = 0; i < dipendenti.size(); i++){
-            bw.write(dipendenti.get(i).nome + ";" + dipendenti.get(i).cognome + ";" + dipendenti.get(i).sesso + ";" + dipendenti.get(i).data + "\n");
+        for (Dipendenti dipendente : dipendenti) {
+            bw.write(dipendente.nome + ";" + dipendente.cognome + ";" + dipendente.sesso + ";" + dipendente.data + "\n");
         }
         bw.close();
         file.close();
