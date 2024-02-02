@@ -50,11 +50,9 @@ public class GestionaleController {
     private RadioButton rbModificaMaschio, rbModificaFemmina;
     @FXML
     private Label sessoDipendente;
-  
     private int indexD = -1;
     private int indexF = -1;
     private int indexC = -1;
-  
     private float conto = 0, entrate = 0, uscite = 0;
    
     private Dipendenti Gestionale;
@@ -64,6 +62,10 @@ public class GestionaleController {
     private ArrayList<Transazioni> transazioni = new ArrayList<>();
     private ArrayList<GestionaleClienti> clienti = new ArrayList<>();
 
+    /**
+     *Metodo che viene eseguito all'avvio del programma, carica i dati salvati precedentemente nei file e imposta la grafica.
+     * @throws IOException
+     */
     @FXML
     void initialize() throws IOException {
         txtNome.setPromptText("Nome");
@@ -111,6 +113,10 @@ public class GestionaleController {
             aggiornaTransazioni_10P();
         }
     }
+
+    /**
+     * Metodo che fa i controlli e aggiorna le transazioni in modo che vengano mostrate a video, viene eseguito quando non è garantito che ce ne siano 10.
+     */
     public void aggiornaTransazioni_10L(){
         int i = transazioni.size();
         logLastID1.setText(String.valueOf(i));
@@ -212,6 +218,10 @@ public class GestionaleController {
             }
         }
     }
+
+    /**
+     * Metodo in cui non sono presenti i controlli e aggiorna le transazioni in modo che vengano mostrate a video, è garantito che ce ne siano 10.
+     */
     public void aggiornaTransazioni_10P(){
         int i = transazioni.size();
         logLastID1.setText(String.valueOf(i));
@@ -326,6 +336,12 @@ public class GestionaleController {
             rbFemmina.setSelected(false);
         }
     }
+
+    /**
+     * Metodo utilizzato per modificare i dati anagrafici di un dipendente, su richiesta dell'utente.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onButtonModificaDipendente(ActionEvent actionEvent) throws IOException {
         Dipendenti dipendente = null;
         if (indexD != -1) {
@@ -355,13 +371,13 @@ public class GestionaleController {
         rbModificaMaschio.setSelected(false);
         rbModificaFemmina.setSelected(false);
         sessoDipendente.setText("-");
-        /*
-        txtModificaNome.setText(dipendente.getNome());
-        txtModificaCognome.setText(dipendente.getCognome());
-        txtModificaData.setText(dipendente.getData());
-        sessoDipendente.setText(dipendente.getSesso());
-        */
     }
+
+    /**
+     * Metodo utilizzato per rimuovere un dipendente, su richiesta dell'utente.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onButtonRimuoviDipendente(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         if (indexD != -1) {
@@ -389,6 +405,11 @@ public class GestionaleController {
             }
         }
     }
+
+    /**
+     * Metodo che carica in automatico i dati del dipendente selezionato.
+     * @param actionEvent
+     */
     public void onListaDipendentiAction(ActionEvent actionEvent) {
         indexD = ListaDipendenti.getSelectionModel().getSelectedIndex();
         Dipendenti dipendente = dipendenti.get(indexD);
@@ -398,6 +419,11 @@ public class GestionaleController {
         sessoDipendente.setText(dipendente.getSesso());
     }
 
+    /**
+     * Metodo utilizzato per aggiungere un nuovo fornitore.
+     * @param event
+     * @throws IOException
+     */
     public void onButtonCreaFornitore(ActionEvent event) throws IOException {
         if (ChkTypeFornitori.isSelected() && (txtNomeFornitore.getText().equals("") || txtCognomeFornitore.getText().equals(""))){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -434,6 +460,11 @@ public class GestionaleController {
         }
 
     }
+
+    /**
+     * Metodo utilizzato per controllare se il fornitore è una persona fisica oppure un'azienda.
+     * @param event
+     */
     public void CheckPersona(ActionEvent event) {
         if (ChkTypeFornitori.isSelected()){
             txtNomeAziendaFornitore.setDisable(true);
@@ -453,8 +484,14 @@ public class GestionaleController {
 
     public void onListaFornitoriPaga(ActionEvent actionEvent) {
         indexF = ListaFornitori.getSelectionModel().getSelectedIndex();
-        System.out.println(indexF);
     }
+
+    /**
+     * Metodo che ti consente di pagare a un determinato fornitore, aggiunti anche alert di controllo.
+     * Ogni pagamento viene sottratto dal saldo attuale.
+     * @param event
+     * @throws IOException
+     */
     public void onButtonPaga(ActionEvent event) throws IOException {
         if (txtFornitorePagamento.getText().equals("") || ListaFornitori.getSelectionModel().getSelectedIndex() == -1){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -495,8 +532,6 @@ public class GestionaleController {
                 } else {
                     aggiornaTransazioni_10P();
                 }
-                //DA SISTEMARE (RISULTA SEMPRE NULL)
-                //lbltotaleConto.setText(" " + Transazioni.totaleConto());
             } else {
                 alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
@@ -507,6 +542,11 @@ public class GestionaleController {
         }
     }
 
+    /**
+     * Metodo utilizzato per creare un nuovo fornitore.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onButtonCreaCliente(ActionEvent actionEvent) throws IOException {
         if (chkTypeClienti.isSelected() && (txtNomeCliente.getText().equals("") || txtCognomeCliente.getText().equals(""))){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -542,6 +582,11 @@ public class GestionaleController {
             txtNomeAziendaCliente.clear();
         }
     }
+
+    /**
+     *Metodo utilizzato per controllare se il cliente è una persona fisica oppure un'azienda.
+     * @param actionEvent
+     */
     public void checkCliente(ActionEvent actionEvent) {
         if (chkTypeClienti.isSelected()){
             txtNomeCliente.setDisable(false);
@@ -561,9 +606,14 @@ public class GestionaleController {
 
     public void onListaClientiPaga(ActionEvent actionEvent) {
         indexC = ListaClienti.getSelectionModel().getSelectedIndex();
-        System.out.println(indexC);
     }
 
+    /**
+     * Metodo che ti consente di creare una fattura per un determinato cliente, aggiunti anche alert di controllo.
+     * Ogni pagamento viene aggiunto al saldo attuale.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onButtonFattura(ActionEvent actionEvent) throws IOException {
         if (txtFatturaClienti.getText().equals("") || ListaClienti.getSelectionModel().getSelectedIndex() == -1){
             Alert alert = new Alert(Alert.AlertType.ERROR);

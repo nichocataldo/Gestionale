@@ -7,7 +7,18 @@ public class GestionaleFornitori {
     private String nome;
     private String cognome;
     private String nomeAzienda;
+    /**
+     * Metodo che inizializza i fornitori.
+     */
     public GestionaleFornitori(){}
+
+    /**
+     * Metodo che permette l'aggiunta di un fornitore.
+     * @param nome
+     * @param cognome
+     * @param azienda
+     * @return
+     */
     static public GestionaleFornitori creaFornitori(String nome, String cognome, String azienda){
         GestionaleFornitori fornitori = new GestionaleFornitori();
         fornitori.nome = nome;
@@ -15,6 +26,11 @@ public class GestionaleFornitori {
         fornitori.nomeAzienda = azienda;
         return fornitori;
     }
+
+    /**
+     * Metodo che permette il caricamento di dati dei fornitori precedentemente salvati.
+     * @throws IOException
+     */
     static public ArrayList<GestionaleFornitori> caricaFornitori() throws IOException {
         ArrayList<GestionaleFornitori> fornitori = new ArrayList<>();
         FileReader fr = new FileReader("src/main/java/Module/fornitori.cvs");
@@ -41,6 +57,12 @@ public class GestionaleFornitori {
         fr.close();
         return fornitori;
     }
+
+    /**
+     * Metodo che permette di salvare i dati attuali in un file ".cvs" (*comma separated value*) in modo da poterli caricare alla prossima apertura senza dover ricompilare i dati.
+     * @param fornitori
+     * @throws IOException
+     */
     static public void salvaFornitori(ArrayList<GestionaleFornitori> fornitori) throws IOException {
         FileWriter file = new FileWriter("src/main/java/Module/fornitori.cvs");
         BufferedWriter bw = new BufferedWriter(file);
