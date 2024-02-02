@@ -102,13 +102,13 @@ public class Dipendenti {
 
     /**
      * Metodo per ottenere il nome del dipendente.
-     * @return Il nome del dipendente scelto.
+     * @return Il nome del dipendente.
      */
     public String getNome() {return nome;}
 
     /**
      * Metodo per ottenere il cognome del dipendente.
-     * @return Il cognome del dipendente scelto.
+     * @return Il cognome del dipendente.
      */
     public String getCognome() {
         return cognome;
@@ -116,15 +116,15 @@ public class Dipendenti {
 
     /**
      * Metodo per ottenere la data di nascita del dipendente.
-     * @return La data di nascita del dipendente scelto.
+     * @return La data di nascita del dipendente.
      */
     public String getData() {
         return data;
     }
 
     /**
-     * Metodo per ottenere il sesso del dipendente scelto.
-     * @return Il sesso del dipendente scelto.
+     * Metodo per ottenere il sesso del dipendente.
+     * @return Il sesso del dipendente.
      */
     public String getSesso() {
         return sesso;

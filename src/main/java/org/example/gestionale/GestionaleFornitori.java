@@ -76,7 +76,22 @@ public class GestionaleFornitori {
         bw.close();
         file.close();
     }
+
+    /**
+     * Metodo per ottenere il nome del fornitore.
+     * @return Nome del fornitore
+     */
     public String getNome() {return nome;}
+
+    /**
+     * Metodo per ottenere il cognome del fornitore.
+     * @return Cognome del fornitore.
+     */
     public String getCognome() {return cognome;}
+
+    /**
+     * Metodo per ottenere l'azienda del fornitore.
+     * @return Nome dell'azidenda del fornitore.
+     */
     public String getNomeAzienda() {return nomeAzienda;}
 }

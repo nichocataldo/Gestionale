@@ -76,8 +76,23 @@ public class GestionaleClienti {
         bw.close();
         file.close();
     }
+
+    /**
+     * Metodo per ottenere il nome di un cliente.
+     * @return Nome del cliente.
+     */
     public String getNome() {return nome;}
+
+    /**
+     * Metodo per ottenere il cognome di un cliente.
+     * @return Cognome del cliente.
+     */
     public String getCognome() {return cognome;}
+
+    /**
+     * Metodo per ottenere l'azienda del cliente.
+     * @return Nome dell'azienda del cliente.
+     */
     public String getNomeAzienda() {return nomeAzienda;}
 }
 
