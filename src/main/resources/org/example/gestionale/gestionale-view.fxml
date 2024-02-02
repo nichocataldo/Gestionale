@@ -160,7 +160,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lbltotaleConto" alignment="CENTER" layoutX="434.0" layoutY="392.0" prefHeight="33.0" prefWidth="163.0">
+                        <Label fx:id="lbltotaleConto" layoutX="400.0" layoutY="340.0" prefHeight="33.0" prefWidth="163.0">
                            <font>
                               <Font name="System Bold" size="21.0" />
                            </font>
@@ -361,7 +361,7 @@
                               </Label>
                            </children>
                         </GridPane>
-                        <Label layoutX="265.0" layoutY="392.0" prefHeight="33.0" prefWidth="163.0" text="Credito Attuale:">
+                        <Label layoutX="400.0" layoutY="307.0" prefHeight="33.0" prefWidth="163.0" text="Credito Attuale:">
                            <font>
                               <Font name="System Bold" size="21.0" />
                            </font>

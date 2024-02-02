@@ -75,6 +75,7 @@ public class GestionaleController {
         txtNomeCliente.setPromptText("Nome");
         txtCognomeCliente.setPromptText("Cognome");
         txtNomeAziendaCliente.setPromptText("Nome Azienda");
+        txtFatturaClienti.setPromptText("Importo");
         dipendenti.addAll(Dipendenti.caricaDipedenti());
         for (int i = 0; i < dipendenti.size(); i++){
             ListaDipendenti.getItems().add(dipendenti.get(i).getNome() + " " + dipendenti.get(i).getCognome()); // Aggiunge al CheckBox
@@ -538,6 +539,8 @@ public class GestionaleController {
                 alert.setHeaderText("Pagamento annullato");
                 alert.setContentText("Il tuo pagamento è stato annullato!");
                 alert.showAndWait();
+                txtFornitorePagamento.clear();
+                ListaFornitori.getSelectionModel().clearSelection();
             }
         }
     }
@@ -599,7 +602,6 @@ public class GestionaleController {
             txtNomeAziendaCliente.setDisable(false);
             txtNomeCliente.setText("");
             txtCognomeCliente.setText("");
-
         }
     }
 
@@ -633,7 +635,6 @@ public class GestionaleController {
             alert.setHeaderText("Conferma pagamento");
             alert.setContentText("Sei sicuro di volere inviare la fattura?");
             Optional<ButtonType> result = alert.showAndWait();
-            //sostituire "fornitore"
             if (result.get() == ButtonType.OK) {
                 transazioni.add(Transazioni.nuovaTransazione("+"+ txtFatturaClienti.getText(), ListaClienti.getSelectionModel().getSelectedItem().toString()));
                 Transazioni.salvaTransazioni(transazioni);
@@ -656,6 +657,8 @@ public class GestionaleController {
                 alert.setHeaderText("Pagamento annullato");
                 alert.setContentText("Il tuo pagamento è stato annullato!");
                 alert.showAndWait();
+                txtFatturaClienti.clear();
+                ListaClienti.getSelectionModel().clearSelection();
             }
         }
     }
