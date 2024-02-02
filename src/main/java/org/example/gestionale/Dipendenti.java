@@ -16,11 +16,12 @@ public class Dipendenti {
     public Dipendenti(){}
 
     /**
-     * Metodo che permette l'aggiunta di un dipendente
+     * Metodo che crea un dipendente, passato i dati anagrafici del dipendente.
      * @param nome
      * @param cognome
      * @param sesso
      * @param data
+     * @return Ritorna un "dipendente" da aggiungere alla lista dei dipendenti esistenti.
      */
     static public Dipendenti creaDipendente(String nome, String cognome, String sesso, String data){
         Dipendenti dipendente = new Dipendenti();
@@ -90,19 +91,41 @@ public class Dipendenti {
         bw.close();
         file.close();
     }
+
+    /**
+     * Metodo che stampa i dati del dipendente.
+     * @return Ritorna una stringa che contiene i dati del dipendente.
+     */
     public String toString(){
         return this.nome + " " + this.cognome + " " + this.sesso + " " + this.data;
     }
+
+    /**
+     * Metodo per ottenere il nome del dipendente.
+     * @return Il nome del dipendente scelto.
+     */
     public String getNome() {return nome;}
 
+    /**
+     * Metodo per ottenere il cognome del dipendente.
+     * @return Il cognome del dipendente scelto.
+     */
     public String getCognome() {
         return cognome;
     }
 
+    /**
+     * Metodo per ottenere la data di nascita del dipendente.
+     * @return La data di nascita del dipendente scelto.
+     */
     public String getData() {
         return data;
     }
 
+    /**
+     * Metodo per ottenere il sesso del dipendente scelto.
+     * @return Il sesso del dipendente scelto.
+     */
     public String getSesso() {
         return sesso;
     }
