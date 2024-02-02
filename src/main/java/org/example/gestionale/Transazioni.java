@@ -9,9 +9,18 @@ public class Transazioni {
     private String importo;
     private String cliente;
 
+    /**
+     * Costruttore che inizializza la classe.
+     */
     public Transazioni() {
     }
 
+    /**
+     * Crea una nuova transazione da aggiungere a quelle attualmente esistenti.
+     * @param importo
+     * @param cliente
+     * @return Ritorna una variabile di tipo Transazione da aggiungere alla lista.
+     */
     static public Transazioni nuovaTransazione(String importo, String cliente) {
         Transazioni transazioni = new Transazioni();
         transazioni.importo = importo;
@@ -19,6 +28,11 @@ public class Transazioni {
         return transazioni;
     }
 
+    /**
+     * Metodo che controlla se l'importo inserito è un numero.
+     * @param str
+     * @return Un booleano che dice se il numero inserito è un numero.
+     */
     public static boolean isNumber(String str) {
         try {
             Double.parseDouble(str);
@@ -28,6 +42,11 @@ public class Transazioni {
         }
     }
 
+    /**
+     * Metodo che carica le transazioni fatte in precedenza da un file su cui sono salvate le transazioni.
+     * @return Ritorna la lista delle transazioni fatte in precedenza.
+     * @throws IOException
+     */
     static public ArrayList<Transazioni> caricaTransazioni() throws IOException {
         ArrayList<Transazioni> transazioni = new ArrayList<>();
         FileReader fr = new FileReader("src/main/java/Module/Transazioni.cvs");
@@ -38,15 +57,18 @@ public class Transazioni {
         if (riga != null) {
             dati = riga.split(";");
         }
+        // System.out.println(riga.length());
         while ((riga = br.readLine()) != null) {
-            Transazioni transazione = new Transazioni();
-            System.out.println(riga);
-            transazione.importo = dati[0];
-            transazione.cliente = dati[1];
-            transazioni.add(transazione);
-            System.out.println("Aggiunto " + transazione);
-            if (riga != null) {
-                dati = riga.split(";");
+            if (riga.length() != 0) {
+                Transazioni transazione = new Transazioni();
+                System.out.println(riga);
+                transazione.importo = dati[0];
+                transazione.cliente = dati[1];
+                transazioni.add(transazione);
+                System.out.println("Aggiunto " + transazione);
+                if (riga != null) {
+                    dati = riga.split(";");
+                }
             }
         }
         br.close();
@@ -54,6 +76,11 @@ public class Transazioni {
         return transazioni;
     }
 
+    /**
+     * Metodo che salva l'ultima transazione fatta in un file apposito, che verrà caricato alla prossima sessione.
+     * @param transazioni
+     * @throws IOException
+     */
     static public void salvaTransazioni(ArrayList<Transazioni> transazioni) throws IOException {
         FileWriter file = new FileWriter("src/main/java/Module/Transazioni.cvs", true);
         BufferedWriter bw = new BufferedWriter(file);
@@ -73,6 +100,11 @@ public class Transazioni {
         file.close();
     }
 
+    /**
+     * Metodo che calcola il saldo attualmente disponibile dell'azienda.
+     * @param transazioni
+     * @return Il saldo attualmente disponibile.
+     */
     public static float totaleConto(ArrayList<Transazioni> transazioni) {
         float somma = 0;
         for(Transazioni transazione:transazioni){
@@ -84,6 +116,12 @@ public class Transazioni {
         }
         return somma;
     }
+
+    /**
+     * Metodo che calcola le entrate totali dell'azienda.
+     * @param transazioni
+     * @return Totale delle entrate dell'azienda.
+     */
     public static float totaleEntrate(ArrayList<Transazioni> transazioni) {
         float entrate = 0;
         for(Transazioni transazione:transazioni){
@@ -93,6 +131,12 @@ public class Transazioni {
         }
         return entrate;
     }
+
+    /**
+     * Metodo che calcola tutte le uscite dell'azienda.
+     * @param transazioni
+     * @return Totale delle uscite dell'azienda.
+     */
     public static float totaleUscite(ArrayList<Transazioni> transazioni) {
         float uscite = 0;
         for(Transazioni transazione:transazioni){
@@ -103,11 +147,18 @@ public class Transazioni {
         return uscite;
     }
 
-
+    /**
+     * Metodo per ottenere l'importo pagato o ricevuto di una transazione.
+     * @return L'importo pagato/ricevuto.
+     */
     public String getImporto() {
         return importo;
     }
 
+    /**
+     * Metodo per ottenere l'ente con cui è stato fatto il pagamento o da cui si è ricevuta la somma.
+     * @return Ente terzo della transazione.
+     */
     public String getCliente() {
         return cliente;
     }
