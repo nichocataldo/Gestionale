@@ -6,14 +6,14 @@ import java.util.ArrayList;
 /**
  * Classe che gestisce i clienti dell'azienda.
  */
-public class GestionaleClienti {
+public class Clienti {
     private String nome;
     private String cognome;
     private String nomeAzienda;
     /**
      * Costruttore che inizializza i clienti.
      */
-    public GestionaleClienti(){}
+    public Clienti(){}
 
     /**
      * Metodo che permette l'aggiunta di un cliente.
@@ -22,8 +22,8 @@ public class GestionaleClienti {
      * @param azienda
      * @return
      */
-    static public org.example.gestionale.GestionaleClienti creaClienti(String nome, String cognome, String azienda){
-        org.example.gestionale.GestionaleClienti clienti = new org.example.gestionale.GestionaleClienti();
+    static public Clienti creaClienti(String nome, String cognome, String azienda){
+        Clienti clienti = new Clienti();
         clienti.nome = nome;
         clienti.cognome = cognome;
         clienti.nomeAzienda = azienda;
@@ -34,8 +34,8 @@ public class GestionaleClienti {
      * Metodo che permette il caricamento di dati dei clienti precedentemente salvati.
      * @throws IOException
      */
-    static public ArrayList<org.example.gestionale.GestionaleClienti> caricaClienti() throws IOException {
-        ArrayList<org.example.gestionale.GestionaleClienti> clienti = new ArrayList<>();
+    static public ArrayList<Clienti> caricaClienti() throws IOException {
+        ArrayList<Clienti> clienti = new ArrayList<>();
         FileReader fr = new FileReader("src/main/java/Module/clienti.cvs");
         BufferedReader br = new BufferedReader(fr);
         String riga = br.readLine();
@@ -44,7 +44,7 @@ public class GestionaleClienti {
             dati = riga.split(";");
         }
         while (riga != null && dati.length == 3) {
-            org.example.gestionale.GestionaleClienti cliente = new org.example.gestionale.GestionaleClienti();
+            Clienti cliente = new Clienti();
             System.out.println(riga);
             cliente.nome = dati[0];
             cliente.cognome = dati[1];
@@ -66,10 +66,10 @@ public class GestionaleClienti {
      * @param clienti
      * @throws IOException
      */
-    static public void salvaClienti(ArrayList<org.example.gestionale.GestionaleClienti> clienti) throws IOException {
+    static public void salvaClienti(ArrayList<Clienti> clienti) throws IOException {
         FileWriter file = new FileWriter("src/main/java/Module/clienti.cvs");
         BufferedWriter bw = new BufferedWriter(file);
-        for (GestionaleClienti cliente : clienti) {
+        for (Clienti cliente : clienti) {
             bw.write(cliente.nome + ";" + cliente.cognome + ";" + cliente.nomeAzienda);
             if (cliente.nomeAzienda == null) {
                 bw.write(" ");

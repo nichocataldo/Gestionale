@@ -3,9 +3,6 @@ package org.example.gestionale;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,9 +56,9 @@ public class GestionaleController {
     private float conto = 0, entrate = 0, uscite = 0;
     private String sesso;
     private ArrayList<Dipendenti> dipendenti = new ArrayList<>();
-    private ArrayList<GestionaleFornitori> fornitori = new ArrayList<>();
+    private ArrayList<Fornitori> fornitori = new ArrayList<>();
     private ArrayList<Transazioni> transazioni = new ArrayList<>();
-    private ArrayList<GestionaleClienti> clienti = new ArrayList<>();
+    private ArrayList<Clienti> clienti = new ArrayList<>();
 
     /**
      *Metodo che viene eseguito all'avvio del programma, carica i dati salvati precedentemente nei file e imposta la grafica.
@@ -80,7 +77,7 @@ public class GestionaleController {
         for (int i = 0; i < dipendenti.size(); i++){
             ListaDipendenti.getItems().add(dipendenti.get(i).getNome() + " " + dipendenti.get(i).getCognome()); // Aggiunge al CheckBox
         }
-        fornitori.addAll(GestionaleFornitori.caricaFornitori());
+        fornitori.addAll(Fornitori.caricaFornitori());
         for (int i = 0; i < fornitori.size() ; i++) {
             if(fornitori.get(i).getNomeAzienda().equals(" "))
                 ListaFornitori.getItems().add(fornitori.get(i).getNome() + " " + fornitori.get(i).getCognome());
@@ -88,7 +85,7 @@ public class GestionaleController {
                 ListaFornitori.getItems().add(fornitori.get(i).getNomeAzienda());
         }
 
-        clienti.addAll(GestionaleClienti.caricaClienti());
+        clienti.addAll(Clienti.caricaClienti());
         for (int i = 0; i < clienti.size() ; i++) {
             if(clienti.get(i).getNomeAzienda().equals(" "))
                 ListaClienti.getItems().add(clienti.get(i).getNome() + " " + clienti.get(i).getCognome());
@@ -446,10 +443,10 @@ public class GestionaleController {
         }
         else{
             if(ChkTypeFornitori.isSelected()) {
-                fornitori.add(GestionaleFornitori.creaFornitori(txtNomeFornitore.getText(), txtCognomeFornitore.getText()," "));
+                fornitori.add(Fornitori.creaFornitori(txtNomeFornitore.getText(), txtCognomeFornitore.getText()," "));
             }
             else {
-                fornitori.add(GestionaleFornitori.creaFornitori(" ", " ",txtNomeAziendaFornitore.getText()));
+                fornitori.add(Fornitori.creaFornitori(" ", " ",txtNomeAziendaFornitore.getText()));
             }
             if(!fornitori.isEmpty()) {
                 if (fornitori.get(fornitori.size() - 1).getNomeAzienda().equals(" ")) {
@@ -458,7 +455,7 @@ public class GestionaleController {
                     ListaFornitori.getItems().add(fornitori.get(fornitori.size() - 1).getNomeAzienda());
                 }
             }
-            GestionaleFornitori.salvaFornitori(fornitori);
+            Fornitori.salvaFornitori(fornitori);
             txtNomeFornitore.clear();
             txtCognomeFornitore.clear();
             txtNomeAziendaFornitore.clear();
@@ -571,10 +568,10 @@ public class GestionaleController {
         }
         else{
             if(chkTypeClienti.isSelected()) {
-                clienti.add(GestionaleClienti.creaClienti(txtNomeCliente.getText(), txtCognomeCliente.getText()," "));
+                clienti.add(Clienti.creaClienti(txtNomeCliente.getText(), txtCognomeCliente.getText()," "));
             }
             else {
-                clienti.add(GestionaleClienti.creaClienti(" ", " ",txtNomeAziendaCliente.getText()));
+                clienti.add(Clienti.creaClienti(" ", " ",txtNomeAziendaCliente.getText()));
             }
             if(!clienti.isEmpty()) {
                 if (clienti.get(clienti.size() - 1).getNomeAzienda().equals(" ")) {
@@ -583,7 +580,7 @@ public class GestionaleController {
                     ListaClienti.getItems().add(clienti.get(clienti.size() - 1).getNomeAzienda());
                 }
             }
-            GestionaleClienti.salvaClienti(clienti);
+            Clienti.salvaClienti(clienti);
             txtNomeCliente.clear();
             txtCognomeCliente.clear();
             txtNomeAziendaCliente.clear();

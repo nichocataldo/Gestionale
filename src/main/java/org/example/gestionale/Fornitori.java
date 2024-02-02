@@ -6,14 +6,14 @@ import java.util.ArrayList;
 /**
  * Classe che gestisce i fornitori che collaborano con l'azienda.
  */
-public class GestionaleFornitori {
+public class Fornitori {
     private String nome;
     private String cognome;
     private String nomeAzienda;
     /**
      * Costruttore inizializza i fornitori.
      */
-    public GestionaleFornitori(){}
+    public Fornitori(){}
 
     /**
      * Metodo che permette l'aggiunta di un fornitore.
@@ -22,8 +22,8 @@ public class GestionaleFornitori {
      * @param azienda
      * @return
      */
-    static public GestionaleFornitori creaFornitori(String nome, String cognome, String azienda){
-        GestionaleFornitori fornitori = new GestionaleFornitori();
+    static public Fornitori creaFornitori(String nome, String cognome, String azienda){
+        Fornitori fornitori = new Fornitori();
         fornitori.nome = nome;
         fornitori.cognome = cognome;
         fornitori.nomeAzienda = azienda;
@@ -34,8 +34,8 @@ public class GestionaleFornitori {
      * Metodo che permette il caricamento di dati dei fornitori precedentemente salvati.
      * @throws IOException
      */
-    static public ArrayList<GestionaleFornitori> caricaFornitori() throws IOException {
-        ArrayList<GestionaleFornitori> fornitori = new ArrayList<>();
+    static public ArrayList<Fornitori> caricaFornitori() throws IOException {
+        ArrayList<Fornitori> fornitori = new ArrayList<>();
         FileReader fr = new FileReader("src/main/java/Module/fornitori.cvs");
         BufferedReader br = new BufferedReader(fr);
         String riga = br.readLine();
@@ -44,7 +44,7 @@ public class GestionaleFornitori {
             dati = riga.split(";");
         }
         while (riga != null && dati.length == 3) {
-            GestionaleFornitori fornitore = new GestionaleFornitori();
+            Fornitori fornitore = new Fornitori();
             System.out.println(riga);
             fornitore.nome = dati[0];
             fornitore.cognome = dati[1];
@@ -66,10 +66,10 @@ public class GestionaleFornitori {
      * @param fornitori
      * @throws IOException
      */
-    static public void salvaFornitori(ArrayList<GestionaleFornitori> fornitori) throws IOException {
+    static public void salvaFornitori(ArrayList<Fornitori> fornitori) throws IOException {
         FileWriter file = new FileWriter("src/main/java/Module/fornitori.cvs");
         BufferedWriter bw = new BufferedWriter(file);
-        for (GestionaleFornitori fornitore : fornitori) {
+        for (Fornitori fornitore : fornitori) {
             bw.write(fornitore.nome + ";" + fornitore.cognome + ";" + fornitore.nomeAzienda);
             if (fornitore.nomeAzienda == null) {
                 bw.write(" ");
