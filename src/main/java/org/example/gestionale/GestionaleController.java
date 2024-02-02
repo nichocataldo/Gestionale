@@ -366,6 +366,10 @@ public class GestionaleController {
         Dipendenti.salvaDipendenti(dipendenti);
         ListaDipendenti.getSelectionModel().select(-1);
         indexD = -1;
+        ListaDipendenti.getItems().clear();
+        for (Dipendenti dipendente_i : dipendenti){
+            ListaDipendenti.getItems().add(dipendente_i.getNome() + " " + dipendente_i.getCognome());
+        }
         txtModificaNome.clear();
         txtModificaCognome.clear();
         txtModificaData.clear();
