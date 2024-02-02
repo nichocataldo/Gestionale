@@ -398,10 +398,6 @@ public class GestionaleController {
         sessoDipendente.setText(dipendente.getSesso());
     }
 
-    void shutdown() throws IOException {
-        Dipendenti.salvaDipendenti(dipendenti);
-    }
-
     public void onButtonCreaFornitore(ActionEvent event) throws IOException {
         if (ChkTypeFornitori.isSelected() && (txtNomeFornitore.getText().equals("") || txtCognomeFornitore.getText().equals(""))){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -487,14 +483,12 @@ public class GestionaleController {
             if (result.get() == ButtonType.OK) {
                 transazioni.add(Transazioni.nuovaTransazione("-"+ txtFornitorePagamento.getText(), ListaFornitori.getSelectionModel().getSelectedItem().toString()));
                 Transazioni.salvaTransazioni(transazioni);
+                conto -= Float.valueOf(txtFornitorePagamento.getText());
+                uscite -= Float.valueOf(txtFornitorePagamento.getText());
                 txtFornitorePagamento.clear();
                 ListaFornitori.getSelectionModel().select(-1);
                 indexF = -1;
-                conto = Transazioni.totaleConto(transazioni);
-                entrate = Transazioni.totaleEntrate(transazioni);
-                uscite = Transazioni.totaleUscite(transazioni);
                 lbltotaleConto.setText(String.valueOf(conto) + "€");
-                lblTotaleEntrate.setText(String.valueOf(entrate) + "€");
                 lblTotaleUscite.setText(String.valueOf(uscite) + "€");
                 if(transazioni.size() < 10){
                     aggiornaTransazioni_10L();
@@ -593,10 +587,19 @@ public class GestionaleController {
             if (result.get() == ButtonType.OK) {
                 transazioni.add(Transazioni.nuovaTransazione("+"+ txtFatturaClienti.getText(), ListaClienti.getSelectionModel().getSelectedItem().toString()));
                 Transazioni.salvaTransazioni(transazioni);
+                conto += Float.valueOf(txtFatturaClienti.getText());
+                entrate += Float.valueOf(txtFatturaClienti.getText());
                 txtFatturaClienti.clear();
                 ListaClienti.getSelectionModel().select(-1);
                 indexC = -1;
-                System.out.println(Transazioni.totaleConto());
+                lbltotaleConto.setText(String.valueOf(conto) + "€");
+                lblTotaleEntrate.setText(String.valueOf(entrate) + "€");
+                if(transazioni.size() < 10){
+                    aggiornaTransazioni_10L();
+                } else {
+                    aggiornaTransazioni_10P();
+                }
+                System.out.println(Transazioni.totaleConto(transazioni));
             } else {
                 alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
