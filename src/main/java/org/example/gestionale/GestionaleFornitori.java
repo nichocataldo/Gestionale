@@ -8,7 +8,7 @@ public class GestionaleFornitori {
     private String cognome;
     private String nomeAzienda;
     /**
-     * Metodo che inizializza i fornitori.
+     * Costruttore inizializza i fornitori.
      */
     public GestionaleFornitori(){}
 

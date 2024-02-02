@@ -7,7 +7,18 @@ public class GestionaleClienti {
     private String nome;
     private String cognome;
     private String nomeAzienda;
+    /**
+     * Costruttore che inizializza i clienti.
+     */
     public GestionaleClienti(){}
+
+    /**
+     * Metodo che permette l'aggiunta di un cliente.
+     * @param nome
+     * @param cognome
+     * @param azienda
+     * @return
+     */
     static public org.example.gestionale.GestionaleClienti creaClienti(String nome, String cognome, String azienda){
         org.example.gestionale.GestionaleClienti clienti = new org.example.gestionale.GestionaleClienti();
         clienti.nome = nome;
@@ -15,6 +26,11 @@ public class GestionaleClienti {
         clienti.nomeAzienda = azienda;
         return clienti;
     }
+
+    /**
+     * Metodo che permette il caricamento di dati dei clienti precedentemente salvati.
+     * @throws IOException
+     */
     static public ArrayList<org.example.gestionale.GestionaleClienti> caricaClienti() throws IOException {
         ArrayList<org.example.gestionale.GestionaleClienti> clienti = new ArrayList<>();
         FileReader fr = new FileReader("src/main/java/Module/clienti.cvs");
@@ -41,6 +57,12 @@ public class GestionaleClienti {
         fr.close();
         return clienti;
     }
+
+    /**
+     *  Metodo che permette di salvare i dati attuali in un file ".cvs" (*comma separated value*) in modo da poterli caricare alla prossima apertura senza dover ricompilare i dati.
+     * @param clienti
+     * @throws IOException
+     */
     static public void salvaClienti(ArrayList<org.example.gestionale.GestionaleClienti> clienti) throws IOException {
         FileWriter file = new FileWriter("src/main/java/Module/clienti.cvs");
         BufferedWriter bw = new BufferedWriter(file);
